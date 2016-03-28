@@ -1,0 +1,230 @@
+body{
+	font-family: '微软雅黑';
+	margin: 0 auto;
+
+}
+
+/********左侧**********/
+
+#menu{
+	width: 240px;
+	height: 100%;
+	position: fixed;
+	overflow:;
+	background-color: #414956;
+}
+
+.submenu li a span{
+	float: right;
+}
+
+#WebTitleBox{
+	height:140px;
+	background: #414956;
+}
+#WebTitle{
+	text-align: center;
+	margin: 0 auto;
+	padding-top: 26px;
+	font-size: 4em;
+	color: #fff;
+}
+
+#WebTitle a{
+	color: #fff;
+}
+
+#WebTitle a:hover{
+	text-decoration: none;
+}
+
+#search{
+	margin-left: 10px;
+	width: 220px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #3b424d;
+}
+
+
+/******************/
+
+
+/********主体**********/
+#main{
+	margin: auto 40px auto 280px;
+	max-width: 100%;
+}
+
+
+
+#breadcrumbBox{
+	padding-top: 30px;
+}
+
+#breadcrumbBox,#textEditor,#loopPage{
+	margin: 0 auto;
+	max-width: 1280px;overflow:hidden;
+}
+
+
+#toolsBox{
+	height: 45px;
+}
+
+#editorBox{
+	margin: 0 auto;
+	max-width:960px;
+}
+
+#editor{
+	height: 120px;
+}
+
+#textTitle{
+	width:100%;
+}
+#emoticons{
+	margin-left: 12px;
+	margin-top: 12px;
+	width:20%;
+	float: left;
+}
+
+#sendName{
+	margin-top: 12px;
+	width:20%;
+	float: left;
+}
+
+#fileUpload{
+	margin-top: 12px;
+	margin-left: 12px;
+	width:30%;
+	float: left;
+}
+
+#cookieShow{
+	float: right;
+	margin-top: 2px;
+	font-size: 0.8em;
+}
+
+#Send,#Reply{
+	margin-top: 12px;
+	margin-left: 12px;
+	width:15%;
+	float: right;
+}
+
+.message{
+	margin-top: 14px;
+	margin-bottom: 0px;
+}
+
+#SendTextBox{
+	margin-bottom: 0px;
+}
+
+/********LoopPage**********/
+
+#loopPage{
+	margin-bottom: 15px;
+}
+
+/***帖子样式***/
+
+/*帖子标题*/
+.pageTitle{
+	overflow: auto;
+	font-weight: 900;
+	font-size: 1.1em;
+}
+
+/*帖子发送者名字、帖子发送时间、帖子发送人Cookie号*/
+.pageName,.pageSendTime,.pageCookie{
+	margin-left: 8px;
+}
+
+/*帖子图片*/
+.pageImg{
+	max-width: 260px;
+	max-height: 260px;
+	border-radius: 4px;
+	border: 1px solid #eee;
+	float:left;
+	margin-right: 15px;
+	margin-bottom: 1px;
+}
+
+/*帖子图片触摸样式*/
+.pageImg:hover{
+	border: 1px solid #ccc;
+	-webkit-box-shadow: 0 0 4px #ccc;
+	box-shadow: 0 0 4px #ccc;
+}
+
+.pageText,.replyText{
+	word-spacing:8px;
+	letter-spacing: 1px;
+}
+
+.pageTools,.replyTools{
+	margin-left: 8px;
+}
+
+.pageTools div,.replyTools div{
+	margin-left: 8px;
+}
+
+/*回复信息栏*/
+.replyInfo{
+	border-bottom: 1px solid #eee;
+	padding:0 0 13px 6px;
+}
+
+/*回复文本框*/
+.replyText{
+	padding-top: 16px;
+	padding-bottom: 6px;
+	padding-left: 6px;
+}
+.replyText div span{
+	margin-top: 10px;
+}
+
+/*回复标题*/
+.replyTitle{
+	overflow: auto;
+	font-weight: 900;
+	font-size: 1em;
+}
+
+/*回复发送者名字、回复发送时间、回复发送人Cookie号*/
+.replyName,.replySendTime,.replyCookie{
+	margin-left: 8px;
+	font-size: 0.95em;
+}
+
+.list-group{
+	margin-bottom: 0px !important;
+}
+
+.well{
+	margin-bottom: 0px !important;
+	padding: 15px 15px 15px 15px !important;
+}
+
+.howMuchReplyHidden{
+	font-size: 0.9em;
+	color: #aaa;
+	margin: auto 0;
+	text-align: center;
+	padding-bottom: 15px;
+}
+
+/********LoopPage**********/
+
+#pagination{
+	margin: auto 0;
+	text-align: center;
+}

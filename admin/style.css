@@ -1,0 +1,50 @@
+* {font-family: Tahoma, "Microsoft Yahei", Arial; }
+body{text-align: center; margin: 0 auto; padding: 0; background-color:#FFFFFF;font-size:12px;font-family:Tahoma, Arial}
+h1 {font-size: 26px; font-weight: normal; padding: 0; margin: 0; color: #444444;}
+h1 small {font-size: 11px; font-family: Tahoma; font-weight: bold; }
+a{color: #000000; text-decoration:none;}
+a.black{color: #000000; text-decoration:none;}
+b{color: #999999;}
+table{clear:both;padding: 0; margin: 0 0 10px;border-collapse:collapse; border-spacing: 0;}
+th{padding: 3px 6px; font-weight:bold;background:#3066a6;color:#FFFFFF;border:1px solid #3066a6; text-align:left;}
+.th_1{padding: 3px 6px; font-weight:bold;background:#666699;color:#FFFFFF;border:1px solid #3066a6; text-align:left;}
+.th_2{padding: 3px 6px; font-weight:bold;background:#417291;color:#FFFFFF;border:1px solid #3066a6; text-align:left;}
+.th_3{padding: 3px 6px; font-weight:bold;background:#067201;color:#FFFFFF;border:1px solid #3066a6; text-align:left;}
+.th_4{padding: 3px 6px; font-weight:bold;background:#666666;color:#FFFFFF;border:1px solid #CCCCCC; text-align:left;}
+.th_5{padding: 3px 6px; font-weight:bold;background:#333333;color:#FFFFFF;border:1px solid #CCCCCC; text-align:left;}
+.th_6{padding: 3px 6px; font-weight:bold;background:#FF6600;color:#FFFFFF;border:1px solid #FF6600; text-align:left;}
+tr{padding: 0; background:#F7F7F7;}
+td{padding: 3px 6px; border:1px solid #CCCCCC;}
+input{padding: 2px; background: #FFFFFF; border-top:1px solid #666666; border-left:1px solid #666666; border-right:1px solid #CCCCCC; border-bottom:1px solid #CCCCCC; font-size:12px}
+input.btn{font-weight: bold; height: 20px; line-height: 20px; padding: 0 6px; color:#666666; background: #f2f2f2; border:1px solid #999;font-size:12px}
+.bar {border:1px solid #999999; background:#FFFFFF; height:5px; font-size:2px; width:89%; margin:2px 0 5px 0;padding:1px;overflow: hidden;}
+.bar_1 {border:1px dotted #999999; background:#FFFFFF; height:5px; font-size:2px; width:89%; margin:2px 0 5px 0;padding:1px;overflow: hidden;}
+.barli_red{background:#ff6600; height:5px; margin:0px; padding:0;}
+.barli_blue{background:#0099FF; height:5px; margin:0px; padding:0;}
+.barli_green{background:#36b52a; height:5px; margin:0px; padding:0;}
+.barli_1{background:#999999; height:5px; margin:0px; padding:0;}
+.barli{background:#36b52a; height:5px; margin:0px; padding:0;}
+#page {width: 920px; padding: 0 20px; margin: 0 auto; text-align: left;}
+#header{position: relative; padding: 10px;}
+#footer {padding: 15px 0; text-align: center; font-size: 11px; font-family: Tahoma, Verdana;}
+#lnmplink {position: absolute; top: 20px; left: 115px; text-align: right; font-weight: bold; color: #06C;}
+#lnmplink a {color: #0000FF; text-decoration: underline;}
+.w_small{font-family: Courier New;}
+.w_number{color: #f800fe;}
+.sudu {padding: 0; background:#5dafd1; }
+.suduk { margin:0px; padding:0;}
+.resYes{}
+.resNo{color: #FF0000;}
+.word{word-break:break-all;}
+#ServerDiskUsedStyle{
+	border:1px solid #eee;
+		
+}
+.list-group{
+margin-bottom: 0px !important;
+}
+.ServerTitle{
+	background-color: #f3f3f3;
+	padding: 8px;
+	height: 40px;
+}
