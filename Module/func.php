@@ -17,6 +17,9 @@
 	function getMenu(){
 		require_once ('./View/menu.php');
 	}
+	function getWelcome(){
+		require_once ('./View/welcome.php');
+	}
 	function getEditor(){
 		require_once ('./View/editor.php');
 	}
@@ -102,7 +105,7 @@
 				$p = 1;
 			}
 		}
-		echo "<div id=\"main\"><div id=\"breadcrumbBox\"><ol class=\"breadcrumb\"><li><a href=\"index.php\"><i class=\"fa fa-home\"></i> 主页</a></li>";
+		echo "<div id=\"main\"><div id=\"breadcrumbBox\"><ol class=\"breadcrumb\"><li><a href=\".\"><i class=\"fa fa-home\"></i> 主页</a></li>";
 		if(isset($_GET['b']) && !isset($_GET['r'])){
 			echo "<li class=\"active\">".$_GET['b']."</li>";
 		}else if(isset($_GET['b']) && isset($_GET['r'])){
@@ -144,7 +147,23 @@ p也需要进行验证
 /*********************************分页*********************************/
 
 	//帖子分页
-	function getpagination($block,$p){
+	function LoopPagePagination($block,$p){
+		$p = 1;
+		$count = getBlockPageCount($_GET['b']);
+		if(isset($_GET['p'])){
+			if($_GET['p'] > 0 && $_GET['p'] < $count){
+				if($_GET['p'] != 1){
+					$p = $_GET['p'];
+				}else{
+					$p = 1;
+				}
+			}else if($_GET['p'] >= $count){
+				$p = $count;
+			}else{
+				$p = 1;
+			}
+		}		
+
 		$count = getBlockPageCount($_GET['b']);
 		echo "<ul class=\"pagination\">";
 		echo "<li><a href=\"?b=".$block."&p=1\">首页</a></li>";
@@ -187,8 +206,8 @@ p也需要进行验证
 	}
 
 	//回复分页
-	function getrepination($block,$reply_for,$p){
-		$count = getPageReplyCount($reply_for);
+	function LoopReplyPagination($block,$reply_for,$p){
+		$count = getReplyPageCount($reply_for);
 		echo "<ul class=\"pagination\">";
 		echo "<li><a href=\"?b=".$block."&r=".$reply_for."&p=1\">首页</a></li>";
 
@@ -237,20 +256,27 @@ p也需要进行验证
 
 /*********************************菜单*********************************/
 
-	//父类菜单
-	function drawFatherMenu(){
+	//获取父类菜单
+	function getFatherMenu(){
 		$database = connMySQL();
 		$MenuFatherBlock = array_unique($database->select("nmb_menu", "menu_father_zh_name"));
 		return $MenuFatherBlock;
 	}
 
-	//子类菜单
-	function drawSonMenu($FatherBlock){
+	//获取子类菜单
+	function getSonMenu($FatherBlock){
 		$database = connMySQL();
 		$MenuSonBlock = $database->select("nmb_menu", "menu_son_zh_name",array(  
 	        "menu_father_zh_name" => $FatherBlock  
 	    ));
 		return $MenuSonBlock;
+	}
+
+	//获取板块当天发贴数
+	function getTodaySendPageCount($block){
+		$database = connMySQL();
+		$count = count($database->query("select id from nmb_page where date(page_send_time)=curdate()")->fetchAll());
+		return $count;
 	}
 
 /*********************************菜单*********************************/
@@ -260,6 +286,30 @@ p也需要进行验证
 
 
 /*********************************帖子*********************************/
+
+	//检测$_GET['p']，返回处理之后当前页数,$type = 0为板块页面，1为帖子页面
+	function checkPage($b,$p,$type){
+		$tmp = 1;
+		if($type == 0){
+			$count = getBlockPageCount($b);
+		}else{
+			$count = getReplyPageCount($b);
+		}
+		if(isset($_GET['p'])){
+			if($p > 0 && $p < $count){
+				if($p != 1){
+					$tmp = $p;
+				}else{
+					$tmp = 1;
+				}
+			}else if($p >= $count){
+				$tmp = $count;
+			}else{
+				$tmp = 1;
+			}
+		}
+		return $tmp;
+	}
 
 	//获取板块页数
 	function getBlockPageCount($block){
@@ -274,7 +324,7 @@ p也需要进行验证
 	}
 
 	//获取回复页数
-	function getPageReplyCount($id){
+	function getReplyPageCount($id){
 		$loop = 0;
 		$pagecount = getReplyCount($id);
 		if($pagecount%10 != 0){
@@ -322,7 +372,25 @@ p也需要进行验证
 		return $tmp;
 	}
 
-	//板块页循环输出回复
+	//获取指定串的内容
+	function getPage($id){
+		$database = connMySQL();
+		$tmp = $database->select("nmb_page", [
+			"id",
+		    "page_title",
+		    "page_name",
+		    "page_send_time",
+		    "page_send_cookie",
+		    "img_url",
+		    "page_text",
+		    "block"
+		], [
+			"id" => $id
+		]);
+		return $tmp;
+	}
+
+	//板块页面输出最近五个回复
 	function getNewFiveReply($id){
 		$database = connMySQL();
 		$tmp = $database->select("nmb_reply", [
@@ -341,7 +409,7 @@ p也需要进行验证
 		return $tmp;
 	}
 
-	//循环输出回复
+	//帖子页循环输出回复
 	function getReply($id,$p){
 		$database = connMySQL();
 		if($p == 1){
@@ -373,23 +441,6 @@ p也需要进行验证
 
 /*********************************发布*********************************/
 
-	function getPage($id){
-		$database = connMySQL();
-		$tmp = $database->select("nmb_page", [
-			"id",
-		    "page_title",
-		    "page_name",
-		    "page_send_time",
-		    "page_send_cookie",
-		    "img_url",
-		    "page_text",
-		    "block"
-		], [
-			"id" => $id
-		]);
-		return $tmp;
-	}
-
 	//获取文件类型后缀 
 	function extend($file_name){ 
 	    $extend = pathinfo($file_name); 
@@ -418,6 +469,19 @@ p也需要进行验证
 	   	}
 	}
 
+	//检查串是否存在
+	function ispage($p){
+		$database = connMySQL();
+		$tmp = $database->has("nmb_page", array(  
+	        "id" => $p 
+	    ));
+	   	if($tmp){
+	   		return true;
+	   	}else{
+	   		return false;
+	   	}
+	}
+
 	//返回Json字符串
 	function responseJsonString($data){
     	echo json_encode($data,JSON_UNESCAPED_UNICODE);
@@ -430,6 +494,7 @@ p也需要进行验证
    		exit;
 	}
 
+	//低版本PHP不支持array_column函数，自定义array_column函数
 	function i_array_column($input, $columnKey, $indexKey=null){
 	    if(!function_exists('array_column')){ 
 	        $columnKeyIsNumber  = (is_numeric($columnKey))?true:false; 

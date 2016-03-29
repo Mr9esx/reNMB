@@ -102,6 +102,8 @@
 
 		else if($_GET["type"] == "reply"){
 
+			$id = $_POST['reply'];
+
 			if(isset($_POST['text']) && $flag){
 
 				if(mb_strlen($_POST['text'],'UTF-8') < 7){
@@ -133,6 +135,10 @@
 
 			}
 
+			if(!ispage($id)){
+				$flag = false;
+			}
+
 			if(isset($_FILES['picFile']) && $flag){
 				$tmp = savePic();
 				if($tmp['errorcode'] == "0"){
@@ -144,10 +150,6 @@
 					$picmsg = $tmp['msg'];
 				}
 			}
-
-			
-
-			$id = $_POST['reply'];
 
 			$floor = getReplyCount($id);
 

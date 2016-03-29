@@ -1,21 +1,16 @@
 <?php
 	if (isset($_GET['b']) && !isset($_GET['r'])) {
+
 		$block = $_GET['b'];
-		$p = 1;
-		$count = getBlockPageCount($_GET['b']);
+
+		//处理页数
 		if(isset($_GET['p'])){
-			if($_GET['p'] > 0 && $_GET['p'] < $count){
-				if($_GET['p'] != 1){
-					$p = $_GET['p'];
-				}else{
-					$p = 1;
-				}
-			}else if($_GET['p'] >= $count){
-				$p = $count;
-			}else{
-				$p = 1;
-			}
-		}		
+			$p = checkPage($block,$_GET['p'],0);
+		}else{
+			$p = checkPage($block,1,0);
+		}
+
+
 		$loopPage = loopPage($_GET['b'],$p);
 		foreach($loopPage as $pageData){			
 
@@ -23,29 +18,25 @@
 			$pageTitle = "";
 			$allReply = "";
 			$img = "";
+			//获取发帖时间
 			$sendTime = $pageData['page_send_time'];
-			$sendCookie = $pageData['page_send_cookie'];			
+			//获取发帖人的饼干
+			$sendCookie = $pageData['page_send_cookie'];
+			//获取帖子的id			
 			$pageID = $pageData['id'];
+			//获取帖子的内容
 			$text = $pageData['page_text'];
+			//获取帖子的板块
 			$block = $pageData['block'];
+			//获取帖子的标题和姓名
+			$pageTitle = $pageData["page_title"];
+			$pageName = $pageData["page_name"];
 
 			//获取page的id，用来获取该id的回复
 			$reply = getNewFiveReply($pageID);
 			$replyFloor = i_array_column($reply, 'floor');
 
-			//判断标题
-			if($pageData["page_title"] == NULL){
-				$pageTitle = "无标题";
-			}else{
-				$pageTitle = $pageData['page_title'];
-			}
 
-			//判断名字
-			if($pageData["page_name"] == NULL){
-				$pageName = "无名氏";
-			}else{
-				$pageName = $pageData['page_name'];
-			}
 
 			//判断是否有回复，当回复数大于5时便隐藏
 			if($reply == false){
@@ -98,9 +89,14 @@
 				echo "<div class=\"well\"><ul class=\"list-group\">";
 				$img = "";
 
+				/*循环输出最新五个回复*/
 				foreach (array_reverse($reply) as $replyData) {
 
+					//楼层数
 					$replyid = $replyData['floor'];
+
+					//获取回复内容
+					$replyText = $replyData['reply_text'];
 
 					//判断是否有图片
 					if($replyData['img_url'] != NULL){
@@ -122,7 +118,8 @@
 					}else{
 						$pageName = $replyData['reply_name'];
 					}
-					$replyText = $replyData['reply_text'];
+
+					//输出
 					echo "
 					<li class=\"list-group-item\">
 						<div class=\"replyInfo\">
@@ -152,31 +149,25 @@
 			echo "</ul></div>";
 			}
 			echo "</div></div>";
-			$img = "";
-		}if(isset($_GET['p'])){
-			getpagination($block,$_GET['p']);
+		}
+		//输出分页
+		if(isset($_GET['p'])){
+			LoopPagePagination($block,$_GET['p']);
 		}else{
-			getpagination($block,1);
+			LoopPagePagination($block,1);
 		}
 	}
 
 
 	else if(isset($_GET['b']) && isset($_GET['r'])){
-		$replycount = getPageReplyCount($_GET['r']);
-		$p = 1;
+		
+		//处理页数
 		if(isset($_GET['p'])){
-			if($_GET['p'] > 0 && $_GET['p'] < $replycount){
-				if($_GET['p'] != 1){
-					$p = $_GET['p'];
-				}else{
-					$p = 1;
-				}
-			}else if($_GET['p'] >= $replycount){
-				$p = $replycount;
-			}else{
-				$p = 1;
-			}
+			$p = checkPage($_GET['r'],$_GET['p'],1);
+		}else{
+			$p = checkPage($_GET['r'],1,1);
 		}
+		
 		$getPage = getPage($_GET['r']);
 		foreach($getPage as $pageData){
 			$pageName = "";
@@ -245,9 +236,10 @@
 					".$allReply;
 				if($reply != false){
 					echo "<div class=\"well\"><ul class=\"list-group\">";
-					$img = "";
+					
 
 					foreach ($reply as $replyData) {
+						$img = "";
 						$replyid = $replyData['floor'];
 						//判断是否有图片
 						if($replyData['img_url'] != NULL){
@@ -304,15 +296,15 @@
 			
 			echo "</div></div>";
 
+			//输出分页
 			if(isset($_GET['p'])){
-				getrepination($_GET['b'],$_GET['r'],$_GET['p']);
+				LoopReplyPagination($_GET['b'],$_GET['r'],$_GET['p']);
 			}else{
-				getrepination($_GET['b'],$_GET['r'],1);
+				LoopReplyPagination($_GET['b'],$_GET['r'],1);
 			}
-
-			$img = "";
-			
 		}
+	}else{
+		exit();
 	}
 	
 ?>

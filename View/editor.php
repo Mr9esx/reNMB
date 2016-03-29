@@ -16,7 +16,7 @@
 						echo "回复 No.".htmlspecialchars($_GET['r']);
 					}
 				?>
-		        <div id="cookieShow"?>当前饼干：
+		        <div id="cookieShow"  data-toggle="tooltip" data-placement="top" title="如果没有显示饼干，请刷新一下页面！或检查浏览器是否禁用Cookie">当前饼干：
 			        <?php
 			        	echo isCookies();
 			        ?>
@@ -37,7 +37,7 @@
 					<!--编辑框-->
 					<div>
 					    <label style="margin-top:6px;font-size:1.1em;" for="editor">正文</label>
-					    <textarea id="editor" class="form-control" rows="3"></textarea>
+					    <textarea id="editor" class="form-control" placeholder="•和平讨论，理性发言&#13;&#10;•禁色情、露点图删，推广链接拉黑，严禁张贴他人隐私资料&#13;&#10;•请文明讨论，人身攻击、辱骂内容一律砍+没收饼干&#13;&#10;•发文间隔为15秒"></textarea>
 					</div>
 					<!--编辑框-->
 
