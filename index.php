@@ -11,14 +11,13 @@ if(file_exists("./config.php")){
 	Header("Location: ./install/index.php");
 }
 ?>
-<!--饼干检查-->
-<?php isCookies()?>
 <!--头部文件导入-->
 <?php getHeader();?>
 <!--头部文件导入-->
 	<body>
 	<!--菜单-->
-	<?php 
+	<?php
+
 		if((isset($_GET['b']) && !isblock($_GET['b'])) || (isset($_GET['r']) && !ispage($_GET['r']))){
 			header('HTTP/1.1 404 Not Found'); 
 			header('location: /404.html');	

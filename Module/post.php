@@ -13,7 +13,7 @@
 		$msg = "";
 		$text = "";
 		$errorcode = "";
-		$cookie = htmlspecialchars($_COOKIE["renmbCookies"]);
+		$cookie = "";
 		$senddate = date("Y-m-d H:i:s",time());
 		$uploaderrorcode = $picmsg = "";
 
@@ -21,19 +21,35 @@
 
 		$flag = true;
 
+		if(COOKIEOPEN == 0){
+			$msg = "无饼干。";
+			$errorcode = "1";
+			$flag = false;
+		}else if(COOKIEOPEN == 1 && !isset($_COOKIE["renmbCookies"])){
+			$cookie = createCookies(9);
+		}else if(isset($_COOKIE["renmbCookies"])){
+			$cookie = $_COOKIE["renmbCookies"];
+		}
+
 		if($_GET["type"] == "send"){
 
-			if(isblock($_POST["send"])){
+			if(isblock($_POST["send"]) && $flag){
 				$block = $_POST["send"];
 			}else{
 				$msg = "未知错误，请联系管理员！";
 				$flag = false;
 			}
 
+			if(!checkSendTime($cookie)){
+				$msg = "发文间距为15秒！";
+				$errorcode = "1";
+				$flag = false;
+			}
+
 			if(isset($_POST['text']) && $flag){
 
-				if(mb_strlen($_POST['text'],'UTF-8') < 7){
-					$msg = "字数不能少于7！";
+				if(mb_strlen($_POST['text'],'UTF-8') < 5){
+					$msg = "字数不能少于5！";
 					$errorcode = "1";
 					$flag = false;
 				}else{
@@ -104,10 +120,20 @@
 
 			$id = $_POST['reply'];
 
+			if(!ispage($id)){
+				$flag = false;
+			}
+
+			if(!checkSendTime($cookie)){
+				$msg = "发文间距为15秒！";
+				$errorcode = "1";
+				$flag = false;
+			}
+
 			if(isset($_POST['text']) && $flag){
 
-				if(mb_strlen($_POST['text'],'UTF-8') < 7){
-					$msg = "字数不能少于7！";
+				if(mb_strlen($_POST['text'],'UTF-8') < 5){
+					$msg = "字数不能少于5！";
 					$flag = false;
 				}else{
 					$text = htmlentities($_POST['text']);

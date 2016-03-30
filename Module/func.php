@@ -37,38 +37,47 @@
 
 	//判断是否存在饼干
 	function isCookies(){
-		if(isset($_COOKIE["renmbCookies"])){
-			return $_COOKIE["renmbCookies"];
+		if(!isset($_COOKIE["renmbCookies"]) && COOKIEOPEN == 1){
+			return createCookies(9);
 		}
-		else{
-			create(9);
+		else if(isset($_COOKIE["renmbCookies"]) && COOKIEOPEN == 0){
+			return "饼干关闭发放中。";
+		}else{
+			return $_COOKIE["renmbCookies"];
 		}
 	}
 
 	//生成饼干
-	function create($length){
+	function createCookies($length){
 		$str = null;
 		$strPool = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
 		$max = strlen($strPool)-1;
-
+		a:
 		for($i=0;$i<$length;$i++){
 			$str.=$strPool[rand(0,$max)];
 		}
-
-		setcookie("renmbCookies",$str,7*24*3600+time());
+		if(cookieisset($str)){
+			goto a;
+		}else{
+			savecookies($str);	
+			setcookie("renmbCookies",$str,7*24*3600+time(),"/");
+		}
+		return $str;
 	}
 
 	//检查当前饼干是否存在
 	function cookieisset($cookie){
 		$database = connMySQL();
-		$tmp = $database->select("nmb_user", ["cookie" => $cookie]);
-		return $tmp;
+		$tmp = $database->has("nmb_user", array(  
+	        "cookie" => $cookie  
+	    ));
+	    return $tmp;
 	}
 
 	//获取当前饼干状态
 	function getcookiestate($cookie){
 		$database = connMySQL();
-		$tmp = $database->has("nmb_user", "warning", ["cookie" => $cookie]);
+		$tmp = $database->select("nmb_user", "warning", ["cookie" => $cookie]);
 		return $tmp;
 	}
 
@@ -272,7 +281,7 @@ p也需要进行验证
 		return $MenuSonBlock;
 	}
 
-	//获取板块当天发贴数
+	//获取板块当天发贴数（需修复）
 	function getTodaySendPageCount($block){
 		$database = connMySQL();
 		$count = count($database->query("select id from nmb_page where date(page_send_time)=curdate()")->fetchAll());
@@ -447,6 +456,51 @@ p也需要进行验证
 	    $extend = strtolower($extend["extension"]); 
 	    return $extend; 
 	} 
+
+	//用户距上次发布帖子间距是否超过15s
+	function checkSendTime($cookie){
+		$now = date("Y-m-d H:i:s",time());
+		$lastTime = userLastSendTime($cookie);
+		if((strtotime($now) - $lastTime) > 15){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	//获取该用户上次发布帖子的时间
+	function userLastSendTime($cookie){
+		$database = connMySQL();
+
+		$tmp = $database->select("nmb_page", [
+		    "page_send_time"
+		], [
+		    "page_send_cookie" => $cookie,
+		    "ORDER" => "page_send_time DESC",
+		    "LIMIT" => "1"
+		]);
+
+		$tmp1 = $database->select("nmb_reply", [
+		    "reply_send_time"
+		], [
+		    "reply_send_cookie" => $cookie,
+		    "ORDER" => "reply_send_time DESC",
+		    "LIMIT" => "1"
+		]);
+		if(count($tmp) != NULL && count($tmp1) != NULL){
+			if(strtotime($tmp[0]['page_send_time']) > strtotime($tmp1[0]['reply_send_time'])){
+				return strtotime($tmp[0]['page_send_time']);
+			}else{
+				return strtotime($tmp1[0]['reply_send_time']);
+			}
+		}else if(count($tmp) != NULL){
+			return strtotime($tmp[0]['page_send_time']);
+		}else if(count($tmp1) != NULL){
+			return strtotime($tmp1[0]['reply_send_time']);
+		}
+		
+		
+	}
 
 /*********************************发布*********************************/
 

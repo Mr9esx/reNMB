@@ -67,7 +67,7 @@
 							<a href=\"./?b=".$_GET['b']."&r=".$pageID."\">No.".$pageID."</a>
 							<div class=\"btn-group btn-group-xs\">
 								<button type=\"button\" class=\"btn btn-default\"><i class=\"fa fa-warning\"></i> 举报</button>
-								<button type=\"button\" class=\"btn btn-default\"><i class=\"fa fa-bookmark\"<!--bookmark-o--></i> 订阅</button>
+								<button type=\"button\" class=\"btn btn-default\"><i class=\"fa fa-bookmark\"></i> 订阅</button>
 							</div>
 							<div class=\"btn-group btn-group-sm\">
 								<button type=\"button\" class=\"btn btn-primary\" onclick=\"reply(".$pageID.",'".$block."');\">回复</button>
@@ -216,7 +216,7 @@
 							<a href=\"javascript:;\">No.".$pageID."</a>
 							<div class=\"btn-group btn-group-xs\">
 								<button type=\"button\" class=\"btn btn-default\"><i class=\"fa fa-warning\"></i> 举报</button>
-								<button type=\"button\" class=\"btn btn-default\"><i class=\"fa fa-bookmark\"<!--bookmark-o--></i> 订阅</button>
+								<button type=\"button\" class=\"btn btn-default\"><i class=\"fa fa-bookmark\"></i> 订阅</button>
 							</div>
 							<div class=\"btn-group btn-group-sm\">
 								<button type=\"button\" class=\"btn btn-primary\" onclick=\"reply(".$pageID.",'".$block."');\">回复</button>

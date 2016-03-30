@@ -1,7 +1,7 @@
 <?php
 
 echo "
-<html>
+<!DOCTYPE html>
 	<head>
 		<link rel=\"stylesheet\" href=\"".WEBROOTURL."/css/font-awesome.min.css\">
 		<link rel=\"stylesheet\" href=\"".WEBROOTURL."/css/bootstrap.min.css\">

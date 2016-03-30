@@ -18,12 +18,15 @@
 				?>
 		        <div id="cookieShow"  data-toggle="tooltip" data-placement="top" title="如果没有显示饼干，请刷新一下页面！或检查浏览器是否禁用Cookie">当前饼干：
 			        <?php
-			        	echo isCookies();
+			        	if(!isset($_COOKIE["renmbCookies"])){
+			        		echo "尚未领取饼干";
+			        	}else{
+			        		echo $_COOKIE["renmbCookies"];
+			        	}
 			        ?>
 		        </div>
 	    	</h3>
 	    </div>
-		<?php// echo $_GET['b']?>
 	    <div class="panel-body">
 	    	<form role="form" id="SendTextBox" method="post" action="#" enctype="multipart/form-data">
 				<div id="editorBox" class="form-group">
@@ -37,21 +40,21 @@
 					<!--编辑框-->
 					<div>
 					    <label style="margin-top:6px;font-size:1.1em;" for="editor">正文</label>
-					    <textarea id="editor" class="form-control" placeholder="•和平讨论，理性发言&#13;&#10;•禁色情、露点图删，推广链接拉黑，严禁张贴他人隐私资料&#13;&#10;•请文明讨论，人身攻击、辱骂内容一律砍+没收饼干&#13;&#10;•发文间隔为15秒"></textarea>
+					    <textarea id="editor" class="form-control" placeholder="• 和平讨论，理性发言&#10;• 禁色情，露点图删，推广链接拉黑，严禁张贴他人隐私资料&#10;• 请文明讨论，人身攻击、辱骂内容一律砍+没收饼干&#10;• 文章字数不能少于五个汉字或者五个字符&#10;• 发布间距为15秒"></textarea>
 					</div>
 					<!--编辑框-->
 
 					<!--工具箱-->
 				    <div id="toolsBox">	
 				    	<!--名字-->
-				    	<div id="sendName"class="input-group">
+				    	<div id="sendName" class="input-group">
 					        <span class="input-group-addon"  data-toggle="tooltip" data-placement="top" title="您的称呼(默认：无名氏)"><i class="fa fa-user"></i> 姓名</span>
 					        <input type="text" class="form-control" id="getName"/>
 					   	</div>
 				    	<!--名字-->	
 
 						<!--颜文字-->
-					    <div id="emoticons"class="input-group">
+					    <div id="emoticons" class="input-group">
 					        <span class="input-group-addon"  data-toggle="tooltip" data-placement="top" title="适当添加一些颜文字不仅能活化文字，还能让语气变得平滑喔"><i class="fa fa-smile-o"></i> 颜文字</span>
 					        <select onclick="setEmoticons(this)" id="Font" class="form-control">
 					        	<option selected="selected"  value=""></option>
