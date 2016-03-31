@@ -59,28 +59,17 @@
 		if(cookieisset($str)){
 			goto a;
 		}else{
-			//加密饼干
-			$cookie = $str;
-			$encodeCookie = hash('md5',hash('sha256', $str));
-			//存储并设置cookie
-			savecookies($cookie,$encodeCookie);	
-			setcookie("renmbCookies",$encodeCookie,7*24*3600+time(),"/");
+			savecookies($str);	
+			setcookie("renmbCookies",$str,7*24*3600+time(),"/");
 		}
 		return $str;
 	}
 
-	//根据encodeCookie获取真实饼干
-	function getCookie($encodeCookie){
-		$database = connMySQL();
-		$tmp = $database->select('nmb_user',['cookie'],['encodeCookie' => $encodeCookie]);
-		return $tmp[0]['cookie'];
-	}
-	
 	//检查当前饼干是否存在
 	function cookieisset($cookie){
 		$database = connMySQL();
 		$tmp = $database->has("nmb_user", array(  
-	        "encodecookie" => $cookie  
+	        "cookie" => $cookie  
 	    ));
 	    return $tmp;
 	}
@@ -88,15 +77,15 @@
 	//获取当前饼干状态
 	function getcookiestate($cookie){
 		$database = connMySQL();
-		$tmp = $database->select("nmb_user", "warning", ["encodecookie" => $cookie]);
+		$tmp = $database->select("nmb_user", "warning", ["cookie" => $cookie]);
 		return $tmp;
 	}
 
 	//储存饼干
-	function savecookies($cookie,$encodeCookie){
+	function savecookies($cookie){
 		$database = connMySQL();
 		$senddate = date("Y-m-d H:i:s",time());
-		$tmp = $database->insert('nmb_user',['cookie' => $cookie,'create_time' => $senddate,'encodeCookie' => $encodeCookie,'warning' => "0"]);
+		$tmp = $database->insert("nmb_user",["cookie" => $cookie,"create_time" => $senddate,"warning" => "0"]);
 	}
 
 /*********************************饼干*********************************/
