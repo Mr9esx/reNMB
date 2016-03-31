@@ -37,11 +37,10 @@ alpha v1.0.2更新
 
 4、可对用户进行禁言（仅从数据库实现，尚未在后台实现）
 
-项目预览地址(alpha v1.0.2)：http://www.nervgeek.com/reNMB/
-
 alpha v1.0.3更新
 
 1、新增放大图片功能，右上角符号□查看原图，符号×关闭图片，右下角也有查看原图和关闭的按钮。
 
 2、修复菜单显示当天新帖Bug
 
+项目预览地址(alpha v1.0.3)：http://www.nervgeek.com/reNMB/
