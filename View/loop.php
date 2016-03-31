@@ -47,7 +47,7 @@
 
 			//判断是否有图片
 			if($pageData['img_url'] != NULL){
-				$img = "<img class=\"pageImg\" src=\"".$pageData['img_url']."\">";
+				$img = "<img data-toggle=\"modal\" data-target=\"#myModal\" class=\"pageImg\" src=\"".$pageData['img_url']."\">";
 			}else{
 				$img = NULL;
 			}
@@ -100,7 +100,7 @@
 
 					//判断是否有图片
 					if($replyData['img_url'] != NULL){
-						$img = "<img class=\"pageImg\" src=\"".$replyData['img_url']."\">";
+						$img = "<img data-toggle=\"modal\" data-target=\"#myModal\"  class=\"pageImg\" src=\"".$replyData['img_url']."\">";
 					}else{
 						$img = NULL;
 					}
@@ -198,7 +198,7 @@
 
 			//判断是否有图片
 			if($pageData['img_url'] != ""){
-				$img = "<img class=\"pageImg\" src=\"".$pageData['img_url']."\">";
+				$img = "<img data-toggle=\"modal\" data-target=\"#myModal\" class=\"pageImg\" src=\"".$pageData['img_url']."\">";
 			}else if(count($reply) > 5){
 				$img = "";
 			}
@@ -243,7 +243,7 @@
 						$replyid = $replyData['floor'];
 						//判断是否有图片
 						if($replyData['img_url'] != NULL){
-							$img = "<img class=\"pageImg\" src=\"".$replyData['img_url']."\">";
+							$img = "<img data-toggle=\"modal\" data-target=\"#myModal\" class=\"pageImg\" src=\"".$replyData['img_url']."\">";
 						}else if(count($reply) > 5){
 							$img = "";
 						}
@@ -308,6 +308,38 @@
 	}
 	
 ?>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+        	
+            <button type="button" class="close" data-dismiss="modal" 
+               aria-hidden="true">×
+            </button>
+
+            <button type="button" class="rawpic close" data-dismiss="modal" 
+               aria-hidden="true">□
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+               图片
+            </h4>
+         </div>
+         <div class="modal-body">      
+			<img id="showpic" style="width:570px;" src="">
+         </div>
+         <div class="modal-footer">
+         	<button type="button" class="btn btn-info rawpic" data-dismiss="modal">
+               查看原图
+            </button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+               关闭
+            </button>
+         </div>
+      </div>
+   </div>
+</div>
 <!--//3月12号目标——实现浏览帖子、回复帖子功能。
 </br>//3月13号目标——实现分页功能、对程序变量进行注释和优化。(延迟)
 </br>//3月13号实际实现了图片上传功能、发布回复功能使用jq form插件重写、匹配i标签提示功能、编辑框提示功能。

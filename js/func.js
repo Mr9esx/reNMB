@@ -113,7 +113,19 @@ $(document).ready(function () {
 	
 	$(function () { $("[data-toggle='tooltip']").tooltip(); });
 
-});
+    $('.pageImg').click(function (){
+        var a = this.src;
+        $(function () {
+            $('#myModal').on('show.bs.modal', function () {
+                $('#showpic').attr("src",a);
+            })
+        });
+     });
+
+    $(".rawpic").click(function (){
+            window.open($('#showpic')[0].src);
+        });
+    });
 
 function getRootPath() {
 	var pathName = window.location.pathname.substring(1);

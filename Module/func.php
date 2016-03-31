@@ -284,7 +284,8 @@ p也需要进行验证
 	//获取板块当天发贴数（需修复）
 	function getTodaySendPageCount($block){
 		$database = connMySQL();
-		$count = count($database->query("select id from nmb_page where date(page_send_time)=curdate()")->fetchAll());
+		$sql = "select id from nmb_page where block = '".$block."' and date(page_send_time)=curdate()";
+		$count = count($database->query($sql)->fetchAll());
 		return $count;
 	}
 
