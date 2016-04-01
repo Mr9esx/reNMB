@@ -43,4 +43,10 @@ alpha v1.0.3更新
 
 2、修复菜单显示当天新帖Bug
 
+alpha v1.0.3更新
+
+1、后台管理帖子功能实现，可以进行帖子的Sega、Nobo、删除功能。
+
+2、优化func.php代码，提高复用性。
+
 项目预览地址(alpha v1.0.3)：http://www.nervgeek.com/reNMB/
