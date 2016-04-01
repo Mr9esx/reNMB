@@ -1,0 +1,19 @@
+* {font-family: Tahoma, "Microsoft Yahei", Arial; }
+#ServerDiskUsedStyle{
+	text-align: center;
+	border:1px solid #eee;
+		
+}
+.list-group{
+margin-bottom: 0px !important;
+}
+.ServerTitle{
+	background-color: #f3f3f3;
+	padding: 8px;
+	height: 40px;
+}
+.panel-zdy{border-color:#e7e7e7}
+.panel-zdy>.panel-heading{color:#000;background-color:#F8F8F8;border-color:#e7e7e7}
+.panel-zdy>.panel-heading+.panel-collapse>.panel-body{border-top-color:#e7e7e7}
+.panel-zdy>.panel-heading .badge{color:#e7e7e7;background-color:#fff}
+.panel-zdy>.panel-footer+.panel-collapse>.panel-body{border-bottom-color:#e7e7e7}

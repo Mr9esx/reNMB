@@ -69,7 +69,7 @@
 	function cookieisset($cookie){
 		$database = connMySQL();
 		$tmp = $database->has("nmb_user", array(  
-	        "cookie" => $cookie  
+	        "cookie" => addslashes($cookie)  
 	    ));
 	    return $tmp;
 	}
@@ -77,7 +77,7 @@
 	//获取当前饼干状态
 	function getcookiestate($cookie){
 		$database = connMySQL();
-		$tmp = $database->select("nmb_user", "warning", ["cookie" => $cookie]);
+		$tmp = $database->select("nmb_user", "warning", ["cookie" => addslashes($cookie)]);
 		return $tmp;
 	}
 
@@ -100,7 +100,7 @@
 	function getNav(){
 	if (isset($_GET['b'])) {
 		$p = 1;
-		$count = getBlockPageCount($_GET['b']);
+		$count = getBlockPageCount($_GET['b'],10);
 		if(isset($_GET['p'])){
 			if($_GET['p'] > 0 && $_GET['p'] < $count){
 				if($_GET['p'] != 1){
@@ -158,7 +158,7 @@ p也需要进行验证
 	//帖子分页
 	function LoopPagePagination($block,$p){
 		$p = 1;
-		$count = getBlockPageCount($_GET['b']);
+		$count = getBlockPageCount($_GET['b'],10);
 		if(isset($_GET['p'])){
 			if($_GET['p'] > 0 && $_GET['p'] < $count){
 				if($_GET['p'] != 1){
@@ -172,8 +172,6 @@ p也需要进行验证
 				$p = 1;
 			}
 		}		
-
-		$count = getBlockPageCount($_GET['b']);
 		echo "<ul class=\"pagination\">";
 		echo "<li><a href=\"?b=".$block."&p=1\">首页</a></li>";
 
@@ -257,6 +255,64 @@ p也需要进行验证
 		echo "</ul>";
 	}
 
+	//帖子管理分页
+	function LoopManagePagePagination($block,$p){
+		$p = 1;
+		$count = getBlockPageCount($_GET['b'],20);
+		if(isset($_GET['p'])){
+			if($_GET['p'] > 0 && $_GET['p'] < $count){
+				if($_GET['p'] != 1){
+					$p = $_GET['p'];
+				}else{
+					$p = 1;
+				}
+			}else if($_GET['p'] >= $count){
+				$p = $count;
+			}else{
+				$p = 1;
+			}
+		}		
+
+		echo "<ul class=\"pagination\">";
+		echo "<li><a href=\"?action=page_manage&b=".$block."&p=1\">首页</a></li>";
+
+		$tmp = $p;
+		$after = $p+4;
+		$tmp1 = $count-$p;
+		if($p > 3){
+			$before = $p-3;
+		}else if($p <= 3){
+			$before = 1;
+		}
+		if($tmp1 <= 3){
+			$after = $count;
+		}
+		
+
+		if($p > $count){
+			echo "</ul>";
+			return false;
+		}
+		if($p > 1){
+			echo "<li><a href=\"?action=page_manage&b=".$block."&p=".($p - 1)."\">上一页</a></li>";
+		}
+		for($before;$before < $p;$before++){
+			echo "<li><a href=\"?action=page_manage&b=".$block."&p=".$before."\">".$before."</a></li>";
+		}
+		echo "<li class=\"active\"><a href=\"?action=page_manage&b=".$block."&p=".$p."\">".$p."</a></li>";
+
+		if($tmp != $count){
+			for($tmp;$tmp < $after;$tmp){
+				echo "<li><a href=\"?action=page_manage&b=".$block."&p=".++$tmp."\">".$tmp."</a></li>";
+			}
+		}
+
+		if($p != $count){
+			echo "<li><a href=\"?action=page_manage&b=".$block."&p=".($p + 1)."\">下一页</a></li>";
+		}		
+		echo "</ul>";
+	}
+
 /*********************************分页*********************************/
 
 
@@ -284,7 +340,7 @@ p也需要进行验证
 	//获取板块当天发贴数（需修复）
 	function getTodaySendPageCount($block){
 		$database = connMySQL();
-		$sql = "select id from nmb_page where block = '".$block."' and date(page_send_time)=curdate()";
+		$sql = "select id from nmb_page where block = '".addslashes($block)."' and date(page_send_time)=curdate()";
 		$count = count($database->query($sql)->fetchAll());
 		return $count;
 	}
@@ -298,10 +354,10 @@ p也需要进行验证
 /*********************************帖子*********************************/
 
 	//检测$_GET['p']，返回处理之后当前页数,$type = 0为板块页面，1为帖子页面
-	function checkPage($b,$p,$type){
+	function checkPage($b,$p,$type,$limit){
 		$tmp = 1;
 		if($type == 0){
-			$count = getBlockPageCount($b);
+			$count = getBlockPageCount($b,$limit);
 		}else{
 			$count = getReplyPageCount($b);
 		}
@@ -322,15 +378,15 @@ p也需要进行验证
 	}
 
 	//获取板块页数
-	function getBlockPageCount($block){
+	function getBlockPageCount($block,$limit){
 		$loop = 0;
 		$pagecount = getPageCount($block);
-		if($pagecount%10 != 0){
+		if($pagecount%$limit != 0){
 			$loop = 1;
 			$pagecount = $pagecount - ($pagecount%10);
 		}
-		$loop = $loop + ($pagecount/10);
-		return $loop;
+		$loop = $loop + ($pagecount/$limit);
+		return floor($loop);
 	}
 
 	//获取回复页数
@@ -348,22 +404,24 @@ p也需要进行验证
 	//获取帖子数
 	function getPageCount($block){
 		$database = connMySQL();
-		return count($database->select("nmb_page", ["id"],["block" => $block]));
+		return count($database->select("nmb_page", ["id"],["block" => addslashes($block)]));
 	}
 
 	//获取回复数
 	function getReplyCount($id){
 		$database = connMySQL();
-		return (count($database->select("nmb_reply", ["id"],["reply_for" => $id]))+1);
+		return (count($database->select("nmb_reply", ["id"],["reply_for" => addslashes($id)]))+1);
 	}
 
 	//循环输出帖子
-	function loopPage($block,$p){
+	function loopPage($block,$p,$limit){
 		$database = connMySQL();
 		if($p == 1){
 			$start = 0;
+		}else if($p != 1){
+			$start = $p*$limit-$limit;
 		}else{
-			$start = $p*10-10;
+			$start = 0;
 		}
 		$tmp = $database->select("nmb_page", [
 			"id",
@@ -372,12 +430,13 @@ p也需要进行验证
 		    "page_send_time",
 		    "page_send_cookie",
 		    "img_url",
+		    "is_sega",
 		    "page_text",
 		    "block"
 		], [
-		    "LIMIT" => [$start,10],
+		    "LIMIT" => [$start,$limit],
 		    "ORDER" => "page_change_time DESC",
-		    "block" => $block
+		    "block" => addslashes($block)
 		]);
 		return $tmp;
 	}
@@ -395,7 +454,7 @@ p也需要进行验证
 		    "page_text",
 		    "block"
 		], [
-			"id" => $id
+			"id" => addslashes($id)
 		]);
 		return $tmp;
 	}
@@ -414,7 +473,7 @@ p也需要进行验证
 		], [
 			"LIMIT" => "5",
 			"ORDER" => "reply_send_time DESC",
-		    "reply_for" => $id
+		    "reply_for" => addslashes($id)
 		]);
 		return $tmp;
 	}
@@ -438,7 +497,7 @@ p也需要进行验证
 		], [
 			"LIMIT" => [$start,10],
 			"ORDER" => "reply_send_time ACS",
-		    "reply_for" => $id
+		    "reply_for" => addslashes($id)
 		]);
 		return $tmp;
 	}
@@ -515,7 +574,7 @@ p也需要进行验证
 	function isblock($block){
 		$database = connMySQL();
 		$tmp = $database->has("nmb_menu", array(  
-	        "menu_son_zh_name" => $block  
+	        "menu_son_zh_name" => addslashes($block) 
 	    ));
 	   	if($tmp){
 	   		return true;
@@ -528,7 +587,7 @@ p也需要进行验证
 	function ispage($p){
 		$database = connMySQL();
 		$tmp = $database->has("nmb_page", array(  
-	        "id" => $p 
+	        "id" => addslashes($p) 
 	    ));
 	   	if($tmp){
 	   		return true;

@@ -493,11 +493,11 @@ if ($_GET['act'] == "mem"){
 	$mu = round($mu,2);
 	/*$arr=array("UsedMemory"=>$mu);
 	$jarr=json_encode($arr); */
-	echo $mu;
+	echo $sysInfo['memUsed'];
 	exit;
 }
 
-//内存
+//cpu
 if ($_GET['type'] == "cpu"){
 	/*$arr=array("UsedMemory"=>$mu);
 	$jarr=json_encode($arr); */

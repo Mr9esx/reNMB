@@ -5,13 +5,13 @@
 
 		//处理页数
 		if(isset($_GET['p'])){
-			$p = checkPage($block,$_GET['p'],0);
+			$p = checkPage($block,$_GET['p'],0,10);
 		}else{
-			$p = checkPage($block,1,0);
+			$p = checkPage($block,1,0,10);
 		}
 
 
-		$loopPage = loopPage($_GET['b'],$p);
+		$loopPage = loopPage($block,$p,10);
 		foreach($loopPage as $pageData){			
 
 			$pageName = "";
@@ -163,9 +163,9 @@
 		
 		//处理页数
 		if(isset($_GET['p'])){
-			$p = checkPage($_GET['r'],$_GET['p'],1);
+			$p = checkPage($_GET['r'],$_GET['p'],1,10);
 		}else{
-			$p = checkPage($_GET['r'],1,1);
+			$p = checkPage($_GET['r'],1,1,10);
 		}
 		
 		$getPage = getPage($_GET['r']);
