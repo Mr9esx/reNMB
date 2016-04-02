@@ -60,3 +60,6 @@ alpha v1.0.5更新
 4、后台样式调整。
 
 项目预览地址(alpha v1.0.3)：http://www.nervgeek.com/reNMB/
+
+话说这个文件能不能写HTML呢？
+<h1>哈哈哈</h1>
