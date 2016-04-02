@@ -15,9 +15,17 @@
 	    }
 
 		switch ($_GET['action']) {
-			case 'delect':
+			case 'deletePage':
 				$database = connMySQL();
 				$database->delete("nmb_page", [
+				    "AND" => [
+				        "id" => $_POST['id']
+				    ]
+				]);
+				break;
+			case 'deleteReply':
+				$database = connMySQL();
+				$database->delete("nmb_reply", [
 				    "AND" => [
 				        "id" => $_POST['id']
 				    ]

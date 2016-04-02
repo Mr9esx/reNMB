@@ -12,12 +12,6 @@
 		text-align: center;
 		padding: 11px 0px 11px 0px !important;
 	}
-	td{
-		max-width: 10% !important;
-	}
-	tr{
-		background-color: #fff !important;
-	}
 	.list-group-item.active{
 		background-color: #e7e7e7;
 		border-color: #e7e7e7;
@@ -44,6 +38,9 @@
 	.managerSendTime,.managerSendCookie,.managerPageState{
 		color: #888;
 	}
+	.pagination{
+		margin-top: 0px !important;
+	}
 </style>
 <div class="col-md-2 column">
 	<div class="page-header">
@@ -69,36 +66,60 @@
 	?>
 </div>
 
+   <script>
+      $(function () { $(".tooltip-options a").tooltip({html : true });
+      });
+   </script>
+<div>
 <div class="col-md-10 column">
-	<div class="page-header">
-	   	<h4>帖子列表</h4>
-	</div>
 	
-
-	<table class="table">
-		<colgroup>
-		    <col width='5%'></col>
-		    <col width='50%'></col>
-		    <col width='5%'></col>
-		    <col width='14%'></col>
-		    <col width='10%'></col>
-		    <col width='5%'></col>
-		    <col width='11%'></col>
-	    </colgroup>
-		<thead>
-			<tr>
-				<th>ID</th>
-				<th>帖子内容</th>
-				<th>图片</th>
-				<th>发表时间</th>
-				<th>发表饼干</th>
-				<th>状态</th>
-				<th>操作</th>
-			</tr>
-		</thead>
-		<tbody>
 		<?php
 			if(isset($_GET['b'])){
+				if(!isblock($manageblock)){
+					exit();
+				}
+				echo "	<div class=\"page-header\">
+						   	<h4>帖子列表</h4>
+						</div>";
+
+				if(isset($_GET['p'])){
+					LoopManagePagePagination($manageblock,$_GET['p']);
+				}else{
+					LoopManagePagePagination($manageblock,1);
+				}
+
+				echo "<div style=\"float:right;width:30%;\" class=\"input-group\">
+               <input type=\"text\" class=\"form-control\">
+               <span class=\"input-group-btn\">
+                  <button class=\"btn btn-default\" type=\"button\">
+                     搜索帖子
+                  </button>
+               </span>
+
+            </div><!-- /input-group -->
+
+						<table class=\"table table-hover\">
+							<colgroup>
+							    <col width='5%'></col>
+							    <col width='50%'></col>
+							    <col width='5%'></col>
+							    <col width='14%'></col>
+							    <col width='10%'></col>
+							    <col width='5%'></col>
+							    <col width='11%'></col>
+						    </colgroup>
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>帖子内容</th>
+									<th>图片</th>
+									<th>发表时间</th>
+									<th>发表饼干</th>
+									<th>状态</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>";
 				$loopPage = loopPage($manageblock,$p,20);
 				//print_r($loopPage);
 				$style = $state = $pic_state = $btn_pic = '';
@@ -114,15 +135,23 @@
 					}
 					echo "<tr class=\"".$style."\"><td class=\"pageid\">".$pageData['id']."</td><td><div>
 					<div class=\"managePageTitle\"><a href=\"".WEBROOTURL."/?b=".$pageData['block']."&r=".$pageData['id']."\">".$pageData['page_title']."</a></div>
-					<span class=\"managePageName\">".$pageData['page_name']."</span><div class=\"managePageText\">".$pageData['page_text']."</div>";
+					<span class=\"managePageName\">".$pageData['page_name']."</span><div class=\"managePageText\">".$text = str_replace("&lt;br/&gt;", "<br/>",$pageData['page_text'])."</div>";
 					if($pageData['img_url'] == NULL){
-						$btn_pic = "无图";
-						$pic_state = "btn-warning";
+						echo "
+						<td class=\"managePagePic\">
+      						<button type=\"button\" class=\"btn btn-warning btn-xs\" onclick=\"window.open('".$pageData['img_url']."','_blank')\">无图</button>
+  						</td>";
 					}else{
-						$btn_pic = "查看";
-						$pic_state = 'btn-info';
+						echo "
+						<td class=\"managePagePic\">
+							<p class=\"tooltip-options\">
+      							<a href=\"#\" data-toggle=\"tooltip\" title=\"<img style='width:96px' src='".$pageData['img_url']."'>\">
+      								<button type=\"button\" class=\"btn btn-info btn-xs\" onclick=\"window.open('".$pageData['img_url']."','_blank')\">查看</button>
+     							 </a>
+  							</p>
+  						</td>";
 					}
-					echo "<td class=\"managePagePic\"><button type=\button\" class=\"btn ".$pic_state." btn-xs\" onclick=\"window.open('".$pageData['img_url']."','_blank')\">".$btn_pic."</button></td>";
+					
 
 					echo "<td class=\"managerSendTime\">".$pageData['page_send_time']."</td><td class=\"managerSendCookie\">".$pageData['page_send_cookie']."</td><td class=\"managerPageState\">".$state."</td>";
 
@@ -135,20 +164,20 @@
 							echo "<button type=\"button\" class=\"nobo btn btn-info btn-xs\" value=\"".$pageData['id']."\">Nobo</button>  ";
 							break;
 					}
-					echo "<button type=\"button\" class=\"delete btn btn-danger btn-xs\" value=\"".$pageData['id']."\">删除</button></td></tr>";
+					echo "<button type=\"button\" class=\"deletePage btn btn-danger btn-xs\" value=\"".$pageData['id']."\">删除</button></td></tr>";
 					$style = $state = $pic_state = $btn_pic = '';
 				}
+				echo "</tbody></table>";
+				if(isset($_GET['p'])){
+					LoopManagePagePagination($manageblock,$_GET['p']);
+				}else{
+					LoopManagePagePagination($manageblock,1);
+				}
+			}else{
+				echo "<div class=\"page-header\">
+						   	<h4>今日概览</h4>
+						</div>";
 			}
 		?>
-		</tbody>
-	</table>
-	<?php
-	if(isset($_GET['b'])){
-		if(isset($_GET['p'])){
-			LoopManagePagePagination($manageblock,$_GET['p']);
-		}else{
-			LoopManagePagePagination($manageblock,1);
-		}
-	}
-	?>
+
 </div>

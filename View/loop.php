@@ -222,6 +222,7 @@
 								<button type=\"button\" class=\"btn btn-primary\" onclick=\"reply(".$pageID.",'".$block."');\">回复</button>
 							</div>
 						</span>
+						
 					</div>
 					<div class=\"panel-body\">
 						<div class=\"pageText\">

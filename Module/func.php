@@ -377,7 +377,7 @@ p也需要进行验证
 		return $tmp;
 	}
 
-	//获取板块页数
+	//获取指定板块页数
 	function getBlockPageCount($block,$limit){
 		$loop = 0;
 		$pagecount = getPageCount($block);
@@ -389,7 +389,7 @@ p也需要进行验证
 		return floor($loop);
 	}
 
-	//获取回复页数
+	//获取指定帖子回复页数
 	function getReplyPageCount($id){
 		$loop = 0;
 		$pagecount = getReplyCount($id);
@@ -411,6 +411,12 @@ p也需要进行验证
 	function getReplyCount($id){
 		$database = connMySQL();
 		return (count($database->select("nmb_reply", ["id"],["reply_for" => addslashes($id)]))+1);
+	}
+
+	//获取指定板块全部回复数
+	function getAllReplyCount($block){
+		$database = connMySQL();
+		return (count($database->select("nmb_reply", ["id"],['block' => addslashes($block)])));
 	}
 
 	//循环输出帖子
@@ -452,7 +458,8 @@ p也需要进行验证
 		    "page_send_cookie",
 		    "img_url",
 		    "page_text",
-		    "block"
+		    "block",
+		    "is_sega"
 		], [
 			"id" => addslashes($id)
 		]);
@@ -498,6 +505,33 @@ p也需要进行验证
 			"LIMIT" => [$start,10],
 			"ORDER" => "reply_send_time ACS",
 		    "reply_for" => addslashes($id)
+		]);
+		return $tmp;
+	}
+
+	//获取指定版块全部回复数据(manager)
+	function getBlockAllReply($block,$p,$limit){
+		$database = connMySQL();
+		if($p == 1){
+			$start = 0;
+		}else{
+			$start = $p*$limit-$limit;
+		}
+		$tmp = $database->select("nmb_reply", [
+			"id",
+		    "reply_title",
+		    "reply_name",
+		    "reply_send_time",
+		    "reply_send_cookie",
+		    "img_url",
+		    "reply_text",
+		    "floor",
+		    "reply_for",
+		    "block"
+		], [
+			"LIMIT" => [$start,$limit],
+			"ORDER" => "reply_send_time DESC",
+		    "block" => addslashes($block)
 		]);
 		return $tmp;
 	}

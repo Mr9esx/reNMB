@@ -15,6 +15,7 @@
 			<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />
 			<link rel=\"stylesheet\" href=\"".WEBROOTURL."/admin/css/style.css\">
 			<link rel=\"stylesheet\" href=\"".WEBROOTURL."/css/bootstrap.min.css\">
+			<link rel=\"stylesheet\" href=\"".WEBROOTURL."/css/font-awesome.min.css\">
 
 			<script type=\"text/jscript\" src=\"".WEBROOTURL."/js/jquery.min.js\"></script>
 			<script type=\"text/jscript\" src=\"".WEBROOTURL."/js/bootstrap.min.js\"></script>
@@ -34,36 +35,24 @@
 						</div>
 						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav">
+								<li id="block_manage">
+									 <a href="?action=block_manage">版块管理</a>
+								</li>
 								<li id="page_manage">
 									 <a href="?action=page_manage">帖子管理</a>
+								</li>
+								<li id="reply_manage">
+									 <a href="?action=reply_manage">回复管理</a>
 								</li>
 								<li id="server_status">
 									 <a href="?action=server_status">服务器状况</a>
 								</li>
-								 <li class="dropdown">
-									 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
-									<ul class="dropdown-menu">
-										<li>
-											 <a href="#">Action</a>
-										</li>
-										<li>
-											 <a href="#">Another action</a>
-										</li>
-										<li>
-											 <a href="#">Something else here</a>
-										</li>
-										<li class="divider">
-										</li>
-										<li>
-											 <a href="#">Separated link</a>
-										</li>
-										<li class="divider">
-										</li>
-										<li>
-											 <a href="#">One more separated link</a>
-										</li>
-									</ul>
-								</li> 
+								<li id="server_status">
+									 <a href="?action=server_status">大数据</a>
+								</li>
+								<li id="server_status">
+									 <a href="?action=server_status">回收站</a>
+								</li>
 							</ul>
 						 	<ul class="nav navbar-nav navbar-right">
 							<li>
@@ -99,8 +88,14 @@
 								case 'server_status':
 									require_once ('./server_status.php');
 									break;
+								case 'block_manage':
+									require_once ('./block_manage.php');
+									break;
 								case 'page_manage':
 									require_once ('./page_manage.php');
+									break;
+								case 'reply_manage':
+									require_once ('./reply_manage.php');
 									break;
 							}
 						}

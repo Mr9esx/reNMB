@@ -238,17 +238,34 @@ $(document).ready(function(){
 
     var Weburl = getRootPath();
 
-    $(".delete").click(function(){
-        $(this).addClass("delete btn btn-danger btn-xs disabled");
+    $(".deletePage").click(function(){
+        $(this).addClass("deletePage btn btn-danger btn-xs disabled");
         var id = $(this).val();
         var a = $(this);
         $.ajax({
             type:'POST',
             data: {id:id},
-            url:Weburl+'/admin/controller.php?action=delect',//请求数据的地址
+            url:Weburl+'/admin/controller.php?action=delectPage',//请求数据的地址
             success:function(data){
                 a.removeClass();
-                a.addClass("delete btn btn-success btn-xs disabled");
+                a.addClass("deletePage btn btn-success btn-xs disabled");
+                a.html("成功");
+                TwoSecRefresh();
+            }
+        });
+    });
+
+    $(".deleteReply").click(function(){
+        $(this).addClass("deleteReply btn btn-danger btn-xs disabled");
+        var id = $(this).val();
+        var a = $(this);
+        $.ajax({
+            type:'POST',
+            data: {id:id},
+            url:Weburl+'/admin/controller.php?action=deleteReply',//请求数据的地址
+            success:function(data){
+                a.removeClass();
+                a.addClass("deleteReply btn btn-success btn-xs disabled");
                 a.html("成功");
                 TwoSecRefresh();
             }
