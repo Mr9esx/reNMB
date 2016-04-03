@@ -23,10 +23,10 @@
 			<?php
 			foreach (getFatherMenu() as $FatherBlock){ 
 				$SonBlock = getSonMenu($FatherBlock);
-				echo "<li><a href=\"javascript:;\"><i class=\"fa fa-gamepad\"></i>".$FatherBlock."<span class=\"jquery-accordion-menu-label\">".count($SonBlock)."版块</span></a><ul class=\"submenu\">";
+				echo "<li><a href='javascript:;'><i class='".$FatherBlock['menu_father_zh_logo']."'></i>".$FatherBlock['menu_father_zh_name']."<span class='jquery-accordion-menu-label'>".count($SonBlock)."版块</span></a><ul class='submenu'>";
 				foreach ($SonBlock as $SonBlock){
 					$TodaySendCount = getTodaySendPageCount($SonBlock);
-					echo "<li><a href=\"".WEBROOTURL."\?b=".$SonBlock."\">".$SonBlock."<span title=\"今天投稿\" class=\"badge pull-righ\">".$TodaySendCount."新帖</span></a></li>";
+					echo "<li><a href='".WEBROOTURL."\?b=".$SonBlock."'>".$SonBlock."<span title='今天投稿' class='badge pull-righ'>".$TodaySendCount."新帖</span></a></li>";
 				}
 				echo "</ul></li>";
 			}

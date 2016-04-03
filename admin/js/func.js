@@ -236,8 +236,8 @@ $(document).ready(function(){
         });
     });*/
 
-    var Weburl = getRootPath();
-
+var Weburl = getRootPath();
+/*
     $(".deletePage").click(function(){
         $(this).addClass("deletePage btn btn-danger btn-xs disabled");
         var id = $(this).val();
@@ -271,7 +271,7 @@ $(document).ready(function(){
             }
         });
     });
-
+*/
     $(".sega").click(function(){
         $(this).addClass("sega btn btn-danger btn-xs disabled");
         var id = $(this).val();
@@ -305,6 +305,160 @@ $(document).ready(function(){
             }
         });
     });
+
+    
+
+    $('.deletePage').click(function (){
+        var id = $(this).val();
+        $('#myModal').on('show.bs.modal', function () {
+            $('.modal-body').text("确定要删除帖子No."+id+"吗？");
+            $('.alert').addClass('alert alert-danger');
+            $('.alert').find('strong').text("警告！");
+            $('.alert').find('span').text("删除后不可恢复！");
+            $('#yes').click(function (){
+                $(this).addClass("disabled");
+                $.ajax({
+                    type:'POST',
+                    data: {id:id},
+                    url:Weburl+'/admin/controller.php?action=delectPage',//请求数据的地址
+                    success:function(data){
+                        $('.alert').removeClass().addClass('alert alert-success');
+                        $('.alert').find('strong').text("成功！");
+                        $('.alert').find('span').text("两秒后刷新页面");
+                        TwoSecRefresh();
+                    }
+                });
+            });   
+        })
+    });
+
+    $('.deleteReply').click(function (){
+        var id = $(this).val();
+        $('#myModal').on('show.bs.modal', function () {
+            $('.modal-body').text("确定要删除该回复吗？");
+            $('.alert').addClass('alert alert-danger');
+            $('.alert').find('strong').text("警告！");
+            $('.alert').find('span').text("删除后不可恢复！");
+            $('#yes').click(function (){
+                $(this).addClass("disabled");
+                $.ajax({
+                    type:'POST',
+                    data: {id:id},
+                    url:Weburl+'/admin/controller.php?action=deleteReply',//请求数据的地址
+                    success:function(data){
+                        $('.alert').removeClass().addClass('alert alert-success');
+                        $('.alert').find('strong').text("成功！");
+                        $('.alert').find('span').text("两秒后刷新页面");
+                        TwoSecRefresh();
+                    }
+                });
+            });   
+        })
+    });
+    $('.replycheckbox').click(function (){
+        $('#myModal').on('show.bs.modal', function () {
+            var count = 0;
+            var Arr=new Array()
+            $('input[type="checkbox"][name="replycheckbox"]:checked').each(
+                function() {
+                    Arr[count] = $(this).val();
+                    count++;
+                }
+            );
+            $('.modal-body').text("确定要删除所选回复吗？");
+            $('.alert').addClass('alert alert-danger');
+            $('.alert').find('strong').text("警告！");
+            $('.alert').find('span').text("删除后不可恢复！");
+            $('#yes').click(function (){
+                $(this).addClass("disabled");
+                $.ajax({
+                    type:'POST',
+                    data: {Arr:Arr},
+                    url:Weburl+'/admin/controller.php?action=replycheckbox',//请求数据的地址
+                    success:function(data){
+                        console.log(data);
+                        $('.alert').removeClass().addClass('alert alert-success');
+                        $('.alert').find('strong').text("成功！");
+                        $('.alert').find('span').text("两秒后刷新页面");
+                        TwoSecRefresh();
+                    }
+                });
+            });   
+        })
+    });
+    $('.pagecheckbox').click(function (){
+        $('#myModal').on('show.bs.modal', function () {
+            var count = 0;
+            var Arr=new Array()
+            $('input[type="checkbox"][name="pagecheckbox"]:checked').each(
+                function() {
+                    Arr[count] = $(this).val();
+                    count++;
+                }
+            );
+            $('.modal-body').text("确定要删除所选回复吗？");
+            $('.alert').addClass('alert alert-danger');
+            $('.alert').find('strong').text("警告！");
+            $('.alert').find('span').text("删除后不可恢复！");
+            $('#yes').click(function (){
+                $(this).addClass("disabled");
+                $.ajax({
+                    type:'POST',
+                    data: {Arr:Arr},
+                    url:Weburl+'/admin/controller.php?action=pagecheckbox',//请求数据的地址
+                    success:function(data){
+                        console.log(data);
+                        $('.alert').removeClass().addClass('alert alert-success');
+                        $('.alert').find('strong').text("成功！");
+                        $('.alert').find('span').text("两秒后刷新页面");
+                        TwoSecRefresh();
+                    }
+                });
+            });   
+        })
+    });
+    $('.fatherblock').click(function (){
+        $('.fatherblockText').val($(this).attr("value"));
+    });
+    $('.createblock').click(function (){
+        var father = $('.fatherblockText').val();
+        var son = $('.sonblockText').val();
+        var logo = $('.sonblockLogo').val();
+        $.ajax({
+            type:'POST',
+            data: {father:father,son:son,logo:logo},
+            url:Weburl+'/admin/controller.php?action=createblock',//请求数据的地址
+            success:function(data){
+                console.log(data);
+                
+                TwoSecRefresh();
+            }
+        });
+    });
+    $('.delectblock').click(function (){
+        var block = $(this).val();
+        $('#myModal').on('show.bs.modal', function () {
+            $('.modal-body').text("确定要删除 '"+block+"' 吗？");
+            $('.alert').addClass('alert alert-danger');
+            $('.alert').find('strong').text("警告！");
+            $('.alert').find('span').text("删除后不可恢复！");
+            $('#yes').click(function (){
+                $(this).addClass("disabled");
+                $.ajax({
+                    type:'POST',
+                    data: {block:block},
+                    url:Weburl+'/admin/controller.php?action=delectblock',//请求数据的地址
+                    success:function(data){
+                        $('.alert').removeClass().addClass('alert alert-success');
+                        $('.alert').find('strong').text("成功！");
+                        $('.alert').find('span').text("两秒后刷新页面");
+                        TwoSecRefresh();
+                    }
+                });
+            });   
+        })
+    });
+    
 });
 
 function getRootPath() {

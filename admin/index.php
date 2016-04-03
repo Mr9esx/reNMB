@@ -25,16 +25,19 @@
 			";
 	?>
 	</head>
-	<body>
+	<body>  
 		<div class="container">
 			<div class="row clearfix">
-				<div class="col-md-12 column">
-					<nav class="navbar navbar-default" role="navigation">
+				<div class="col-md-12 column" style="margin-top:60px">
+					<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 						<div class="navbar-header">
 							 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"></button> <a class="navbar-brand" href="">匿名版后台</a>
 						</div>
 						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav">
+								<li id="website_config">
+									 <a href="?action=website_config">匿名版设置</a>
+								</li>
 								<li id="block_manage">
 									 <a href="?action=block_manage">版块管理</a>
 								</li>
@@ -47,16 +50,22 @@
 								<li id="server_status">
 									 <a href="?action=server_status">服务器状况</a>
 								</li>
-								<li id="server_status">
-									 <a href="?action=server_status">大数据</a>
+								<li id="big_data">
+									 <a href="?action=big_data">大数据</a>
 								</li>
-								<li id="server_status">
-									 <a href="?action=server_status">回收站</a>
+								<li id="trash">
+									 <a href="?action=trash">回收站</a>
+								</li>
+								<li id="admin">
+									 <a href="?action=admin">管理员</a>
 								</li>
 							</ul>
 						 	<ul class="nav navbar-nav navbar-right">
 							<li>
-								 <a href="#">Link</a>
+								 <a href="#">Admin</a>
+							</li>
+							<li>
+								 <a href="http://127.0.0.1/reNMB">返回主页</a>
 							</li>
 							<li class="dropdown">
 								 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
@@ -99,9 +108,19 @@
 									break;
 							}
 						}
+
 					?>
 				</div>
+				
 			</div>
 		</div>
+
+	<div id="footer" class="container">
+		<div class="col-md-12 column" style="margin-top:60px;margin-bottom:30px;">
+			<div style="text-align:center;font-size:0.9em;color:#777;">
+				Copyright © 2016 · All Rights Reserved · Mr9esx from NERVGEEK
+			</div>
+		</div>
+	</div>
 	</body>
 </html>

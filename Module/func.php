@@ -324,7 +324,7 @@ p也需要进行验证
 	//获取父类菜单
 	function getFatherMenu(){
 		$database = connMySQL();
-		$MenuFatherBlock = array_unique($database->select("nmb_menu", "menu_father_zh_name"));
+		$MenuFatherBlock = $database->select("nmb_menu", ["menu_father_zh_name","menu_father_zh_logo"]);
 		return $MenuFatherBlock;
 	}
 
