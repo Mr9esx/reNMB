@@ -53,19 +53,21 @@
 	}
 </style>
 <div class="col-md-2 column">
-	<div class="page-header">
-	   	<h4>版块选择</h4>
+	<div class='blocknav'>
+		<div class="page-header">
+		   	<h4>版块选择</h4>
+		</div>
+		<?php
+		echo "<div>";
+		foreach (getFatherMenu() as $FatherBlock){ 
+			$SonBlock = getSonMenu($FatherBlock);
+			echo "<a class='list-group-item active'>".$FatherBlock."</a>";
+			foreach ($SonBlock as $SonBlock){
+				echo "<a  href='".WEBROOTURL."/admin/?action=".$_GET['action']."&b=".$SonBlock."' class='list-group-item'>".$SonBlock."</a>";
+			}
+		}echo "</div>";
+		?>
 	</div>
-	<?php
-	echo "<div>";
-	foreach (getFatherMenu() as $FatherBlock){ 
-		$SonBlock = getSonMenu($FatherBlock);
-		echo "<a class='list-group-item active'>".$FatherBlock['menu_father_zh_name']."</a>";
-		foreach ($SonBlock as $SonBlock){
-			echo "<a  href='".WEBROOTURL."/admin/?action=".$_GET['action']."&b=".$SonBlock."' class='list-group-item'>".$SonBlock."</a>";
-		}
-	}echo "</div>";
-	?>
 </div>
 
    <script>
@@ -83,6 +85,7 @@
 					exit();
 				}
 				/**分页*/
+				$loop = '';
 				$pagecount = getAllReplyCount($_GET['b']);
 				if($pagecount%20 != 0){
 					$loop = 1;

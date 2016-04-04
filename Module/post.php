@@ -95,14 +95,14 @@
 			if($flag){
 
 				$database->insert("nmb_page",[
-					"page_title" => $title,
+					"page_title" => addslashes($title),
 					"page_send_time" => $senddate,
 					"page_change_time" => $senddate,
-					"page_send_cookie" => $cookie,
-					"page_name" => $name,
+					"page_send_cookie" => addslashes($cookie),
+					"page_name" => addslashes($name),
 					"page_text" => htmlspecialchars($_POST['text']),
 					"img_url" => $picurl,
-					"block" => $block
+					"block" => addslashes($block)
 				]);	
 				$msg = "文本发送成功！";	
 				$errorcode = "0";
@@ -118,6 +118,7 @@
 
 		else if($_GET["type"] == "reply"){
 
+			$block = $_POST['send'];
 			$id = $_POST['reply'];
 
 			if(!ispage($id)){
@@ -181,13 +182,14 @@
 
 			if($flag){
 				$database->insert("nmb_reply",[
-					"reply_title" => $title,
+					"reply_title" => addslashes($title),
 					"reply_send_time" => $senddate,
-					"reply_send_cookie" => $cookie,
-					"reply_name" => $name,
-					"reply_text" => $text,
+					"reply_send_cookie" => addslashes($cookie),
+					"reply_name" => addslashes($name),
+					"reply_text" => addslashes($text),
 					"img_url" => $picurl,
-					"reply_for" => $id,
+					"reply_for" => addslashes($id),
+					"block" => addslashes($block),
 					"floor" => $floor
 				]);
 				$msg = "文本发送成功！";	

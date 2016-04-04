@@ -45,20 +45,22 @@
 		border: 1px solid red;
 	}
 </style>
-<div class="col-md-2 column">
-	<div class="page-header">
-	   	<h4>版块选择</h4>
-	</div>
-	<?php
+<div class="col-md-2 column" style="">
+	<div class='blocknav'>
+		<div class="page-header">
+		   	<h4>版块选择</h4>
+		</div>
+		<?php
 
-	echo "<div>";
-	foreach (getFatherMenu() as $FatherBlock){ 
-		$SonBlock = getSonMenu($FatherBlock);
-		echo "<a class='list-group-item active'>".$FatherBlock['menu_father_zh_name']."</a>";
-		foreach ($SonBlock as $SonBlock){
-			echo "<a href='".WEBROOTURL."/admin/?action=".$_GET['action']."&b=".$SonBlock."' class='list-group-item'>".$SonBlock."</a>";
-		}
-	}echo "</div>";
+		echo "<div>";
+		foreach (getFatherMenu() as $FatherBlock){ 
+			$SonBlock = getSonMenu($FatherBlock);
+			echo "<a class='list-group-item active'>".$FatherBlock."</a>";
+			foreach ($SonBlock as $SonBlock){
+				echo "<a href='".WEBROOTURL."/admin/?action=".$_GET['action']."&b=".$SonBlock."' class='list-group-item'>".$SonBlock."</a>";
+			}
+		}echo "</div>";
+	
 	if(isset($_GET['b'])){
 		$manageblock = $_GET['b'];
 		if(isset($_GET['p'])){
@@ -67,7 +69,7 @@
 			$p = checkPage($manageblock,1,0,20);
 		}
 	}
-	?>
+	?></div>
 </div>
 
    <script>

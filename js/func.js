@@ -18,7 +18,7 @@ $(document).ready(function () {
 		$("#Send").addClass("btn btn-primary disabled");
 		var title = $("#getTitle").val();
 		var text = $("#editor").val();
-		var send = $("#Send").val();
+		var send = $("#Send").attr("name");
 		var name = $("#getName").val();
 		var file = $("#lefile").val();
 		text = nl2br(text);
@@ -55,6 +55,7 @@ $(document).ready(function () {
         				break;
         			default:
         				$("#msgBox").addClass("alert alert-danger message").append(decode.msg+"提交失败！");
+                        threeSecRefresh();
         				break;
         		}
 
@@ -69,12 +70,13 @@ $(document).ready(function () {
 		var title = $("#getTitle").val();
 		var text = $("#editor").val();
 		var name = $("#getName").val();
+        var send = $("#Reply").attr("name");
 		var reply = $("#Reply").val();
 		text = nl2br(text);
 		$("#SendTextBox").ajaxSubmit({
             type:'post',
             url:Weburl+'/Module/post.php?type=reply',
-            data: {title:title,text:text,reply:reply,name:name} ,
+            data: {title:title,text:text,reply:reply,send:send,name:name} ,
              success:function(data){
             	var decode = JSON.parse(data);
         		switch(decode.uploaderrorcode){
@@ -103,6 +105,7 @@ $(document).ready(function () {
         				break;
         			default:
         				$("#msgBox").addClass("alert alert-danger message").append(decode.msg+"提交失败！");
+                        threeSecRefresh();
         				break;
         		}
 

@@ -40,14 +40,14 @@
 
 			//判断是否有回复，当回复数大于5时便隐藏
 			if($reply == false){
-				$allReply = "<div class=\"howMuchReplyHidden\">-本串尚未有人回复，可点击\"回复\"进入串内回复-</div>";
+				$allReply = "<div class='howMuchReplyHidden'>-本串尚未有人回复，可点击'回复'进入串内回复-</div>";
 			}else if($replyFloor[0] > 5){
-				$allReply = "<div class=\"howMuchReplyHidden\">-本串有".($replyFloor[0]-5)."篇回复被隐藏，查看更多请点击\"回复\"-</div>";
+				$allReply = "<div class='howMuchReplyHidden'>-本串有".($replyFloor[0]-5)."篇回复被隐藏，查看更多请点击'回复'-</div>";
 			}
 
 			//判断是否有图片
 			if($pageData['img_url'] != NULL){
-				$img = "<img data-toggle=\"modal\" data-target=\"#myModal\" class=\"pageImg\" src=\"".$pageData['img_url']."\">";
+				$img = "<img data-toggle='modal' data-target='#myModal' class='pageImg' src='".$pageData['img_url']."'>";
 			}else{
 				$img = NULL;
 			}
@@ -56,26 +56,26 @@
 			//输出
 			$text = str_replace("&lt;br/&gt;", "<br/>",$text);
 			echo "
-			<div id=\"loopPage\">
-				<div class=\"panel panel-info\">
-					<div class=\"panel-heading\">
-						<span class=\"pageTitle\">".$pageTitle."</span>
-						<span class=\"pageName\">".$pageName."</span>
-						<span class=\"pageSendTime\">".$sendTime."</span>
-						<span class=\"pageCookie\">ID:".$sendCookie."</span>
-						<span class=\"pageTools\">
-							<a href=\"./?b=".$_GET['b']."&r=".$pageID."\">No.".$pageID."</a>
-							<div class=\"btn-group btn-group-xs\">
-								<button type=\"button\" class=\"btn btn-default\"><i class=\"fa fa-warning\"></i> 举报</button>
-								<button type=\"button\" class=\"btn btn-default\"><i class=\"fa fa-bookmark\"></i> 订阅</button>
+			<div id='loopPage'>
+				<div class='panel panel-info'>
+					<div class='panel-heading'>
+						<span class='pageTitle'>".$pageTitle."</span>
+						<span class='pageName'>".$pageName."</span>
+						<span class='pageSendTime'>".$sendTime."</span>
+						<span class='pageCookie'>ID:".$sendCookie."</span>
+						<span class='pageTools'>
+							<a href='./?b=".$_GET['b']."&r=".$pageID."'>No.".$pageID."</a>
+							<div class='btn-group btn-group-xs'>
+								<button type='button' class='btn btn-default'><i class='fa fa-warning'></i> 举报</button>
+								<button type='button' class='btn btn-default'><i class='fa fa-bookmark'></i> 订阅</button>
 							</div>
-							<div class=\"btn-group btn-group-sm\">
-								<button type=\"button\" class=\"btn btn-primary\" onclick=\"reply(".$pageID.",'".$block."');\">回复</button>
+							<div class='btn-group btn-group-sm'>
+								<button type='button' class='btn btn-primary' onclick='reply(".$pageID.",'".$block."');'>回复</button>
 							</div>
 						</span>
 					</div>
-					<div class=\"panel-body\">
-						<div class=\"pageText\">
+					<div class='panel-body'>
+						<div class='pageText'>
 					    	".$img."		
 					    	<div>
 					    		<span>
@@ -86,7 +86,7 @@
 					</div>
 					".$allReply;
 			if($reply != false){
-				echo "<div class=\"well\"><ul class=\"list-group\">";
+				echo "<div class='well'><ul class='list-group'>";
 				$img = "";
 
 				/*循环输出最新五个回复*/
@@ -100,7 +100,7 @@
 
 					//判断是否有图片
 					if($replyData['img_url'] != NULL){
-						$img = "<img data-toggle=\"modal\" data-target=\"#myModal\"  class=\"pageImg\" src=\"".$replyData['img_url']."\">";
+						$img = "<img data-toggle='modal' data-target='#myModal'  class='pageImg' src='".$replyData['img_url']."'>";
 					}else{
 						$img = NULL;
 					}
@@ -121,21 +121,21 @@
 
 					//输出
 					echo "
-					<li class=\"list-group-item\">
-						<div class=\"replyInfo\">
-							<span class=\"replyTitle\" class=\"panel-title\">".$pageTitle."</span>
-					    	<span class=\"replyName\" class=\"panel-title\">".$pageName."</span>
-					    	<span class=\"replySendTime\" class=\"panel-title\">".$replyData['reply_send_time']."</span>
-					    	<span class=\"replyCookie\" class=\"panel-title\">ID:".$replyData['reply_send_cookie']."</span>
-					    	<span class=\"replyTools\">
-					    		<a href=\"javascript:;\">#".$replyid."</a>
-						    	<div id=\"optionPage\" class=\"btn-group btn-group-xs\">
-									<button type=\"button\" class=\"btn btn-default\"><i class=\"fa fa-warning\"></i> 举报</button>
-									<button type=\"button\" class=\"btn btn-default\"><i class=\"fa fa-link\"></i> 引用</button>
+					<li class='list-group-item'>
+						<div class='replyInfo'>
+							<span class='replyTitle' class='panel-title'>".$pageTitle."</span>
+					    	<span class='replyName' class='panel-title'>".$pageName."</span>
+					    	<span class='replySendTime' class='panel-title'>".$replyData['reply_send_time']."</span>
+					    	<span class='replyCookie' class='panel-title'>ID:".$replyData['reply_send_cookie']."</span>
+					    	<span class='replyTools'>
+					    		<a href='javascript:;'>#".$replyid."</a>
+						    	<div id='optionPage' class='btn-group btn-group-xs'>
+									<button type='button' class='btn btn-default'><i class='fa fa-warning'></i> 举报</button>
+									<button type='button' class='btn btn-default'><i class='fa fa-link'></i> 引用</button>
 								</div>
 							</span>
 						</div>
-						<div class=\"replyText\">
+						<div class='replyText'>
 					    	".$img."
 					    	<div>
 					    		<span>
@@ -143,7 +143,7 @@
 								</span>	
 					    	</div>
 						</div>
-						<div style=\"clear:both\"></div>
+						<div style='clear:both'></div>
 					</li>";
 				}
 			echo "</ul></div>";
@@ -198,34 +198,34 @@
 
 			//判断是否有图片
 			if($pageData['img_url'] != ""){
-				$img = "<img data-toggle=\"modal\" data-target=\"#myModal\" class=\"pageImg\" src=\"".$pageData['img_url']."\">";
+				$img = "<img data-toggle='modal' data-target='#myModal' class='pageImg' src='".$pageData['img_url']."'>";
 			}else if(count($reply) > 5){
 				$img = "";
 			}
 
 			//输出
 			echo "
-			<div id=\"loopPage\">
-				<div class=\"panel panel-info\">
-					<div class=\"panel-heading\">
-						<span class=\"pageTitle\">".$pageTitle."</span>
-						<span class=\"pageName\">".$pageName."</span>
-						<span class=\"pageSendTime\">".$sendTime."</span>
-						<span class=\"pageCookie\">ID:".$sendCookie."</span>
-						<span class=\"pageTools\">
-							<a href=\"javascript:;\">No.".$pageID."</a>
-							<div class=\"btn-group btn-group-xs\">
-								<button type=\"button\" class=\"btn btn-default\"><i class=\"fa fa-warning\"></i> 举报</button>
-								<button type=\"button\" class=\"btn btn-default\"><i class=\"fa fa-bookmark\"></i> 订阅</button>
+			<div id='loopPage'>
+				<div class='panel panel-info'>
+					<div class='panel-heading'>
+						<span class='pageTitle'>".$pageTitle."</span>
+						<span class='pageName'>".$pageName."</span>
+						<span class='pageSendTime'>".$sendTime."</span>
+						<span class='pageCookie'>ID:".$sendCookie."</span>
+						<span class='pageTools'>
+							<a href='javascript:;'>No.".$pageID."</a>
+							<div class='btn-group btn-group-xs'>
+								<button type='button' class='btn btn-default'><i class='fa fa-warning'></i> 举报</button>
+								<button type='button' class='btn btn-default'><i class='fa fa-bookmark'></i> 订阅</button>
 							</div>
-							<div class=\"btn-group btn-group-sm\">
-								<button type=\"button\" class=\"btn btn-primary\" onclick=\"reply(".$pageID.",'".$block."');\">回复</button>
+							<div class='btn-group btn-group-sm'>
+								<button type='button' class='btn btn-primary' onclick='reply(".$pageID.",'".$block."');'>回复</button>
 							</div>
 						</span>
 						
 					</div>
-					<div class=\"panel-body\">
-						<div class=\"pageText\">
+					<div class='panel-body'>
+						<div class='pageText'>
 					    	".$img."		
 					    	<div>
 					    		<span>
@@ -236,7 +236,7 @@
 					</div>
 					".$allReply;
 				if($reply != false){
-					echo "<div class=\"well\"><ul class=\"list-group\">";
+					echo "<div class='well'><ul class='list-group'>";
 					
 
 					foreach ($reply as $replyData) {
@@ -244,7 +244,7 @@
 						$replyid = $replyData['floor'];
 						//判断是否有图片
 						if($replyData['img_url'] != NULL){
-							$img = "<img data-toggle=\"modal\" data-target=\"#myModal\" class=\"pageImg\" src=\"".$replyData['img_url']."\">";
+							$img = "<img data-toggle='modal' data-target='#myModal' class='pageImg' src='".$replyData['img_url']."'>";
 						}else if(count($reply) > 5){
 							$img = "";
 						}
@@ -264,21 +264,21 @@
 						}
 						$replyText = str_replace("&lt;br/&gt;", "<br/>",$replyData['reply_text']);
 						echo "
-						<li class=\"list-group-item\">
-							<div class=\"replyInfo\">
-								<span class=\"replyTitle\" class=\"panel-title\">".$pageTitle."</span>
-						    	<span class=\"replyName\" class=\"panel-title\">".$pageName."</span>
-						    	<span class=\"replySendTime\" class=\"panel-title\">".$replyData['reply_send_time']."</span>
-						    	<span class=\"replyCookie\" class=\"panel-title\">ID:".$replyData['reply_send_cookie']."</span>
-						    	<span class=\"replyTools\">
-						    		<a href=\"javascript:;\">#".$replyid."</a>
-							    	<div id=\"optionPage\" class=\"btn-group btn-group-xs\">
-										<button type=\"button\" class=\"btn btn-default\"><i class=\"fa fa-warning\"></i> 举报</button>
-										<button type=\"button\" class=\"btn btn-default\"><i class=\"fa fa-link\"></i> 引用</button>
+						<li class='list-group-item'>
+							<div class='replyInfo'>
+								<span class='replyTitle' class='panel-title'>".$pageTitle."</span>
+						    	<span class='replyName' class='panel-title'>".$pageName."</span>
+						    	<span class='replySendTime' class='panel-title'>".$replyData['reply_send_time']."</span>
+						    	<span class='replyCookie' class='panel-title'>ID:".$replyData['reply_send_cookie']."</span>
+						    	<span class='replyTools'>
+						    		<a href='javascript:;'>#".$replyid."</a>
+							    	<div id='optionPage' class='btn-group btn-group-xs'>
+										<button type='button' class='btn btn-default'><i class='fa fa-warning'></i> 举报</button>
+										<button type='button' class='btn btn-default'><i class='fa fa-link'></i> 引用</button>
 									</div>
 								</span>
 							</div>
-							<div class=\"replyText\">
+							<div class='replyText'>
 						    	".$img."
 						    	<div>
 						    		<span>
@@ -286,7 +286,7 @@
 									</span>	
 						    	</div>
 							</div>
-							<div style=\"clear:both\"></div>
+							<div style='clear:both'></div>
 						</li>";
 						$img = "";
 					}

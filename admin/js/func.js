@@ -1,3 +1,5 @@
+(function(e){"use strict";e.fn.pin=function(t){var n=0,r=[],i=false,s=e(window);t=t||{};var o=function(){for(var n=0,o=r.length;n<o;n++){var u=r[n];if(t.minWidth&&s.width()<=t.minWidth){if(u.parent().is(".pin-wrapper")){u.unwrap()}u.css({width:"",left:"",top:"",position:""});if(t.activeClass){u.removeClass(t.activeClass)}i=true;continue}else{i=false}var a=t.containerSelector?u.closest(t.containerSelector):e(document.body);var f=u.offset();var l=a.offset();var c=u.offsetParent().offset();if(!u.parent().is(".pin-wrapper")){u.wrap("<div class='pin-wrapper'>")}var h=e.extend({top:60,bottom:0},t.padding||{});u.data("pin",{pad:h,from:(t.containerSelector?l.top:f.top)-h.top,to:l.top+a.height()-u.outerHeight()-h.bottom,end:l.top+a.height(),parentTop:c.top});u.css({width:u.outerWidth()});u.parent().css("height",u.outerHeight())}};var u=function(){if(i){return}n=s.scrollTop();var o=[];for(var u=0,a=r.length;u<a;u++){var f=e(r[u]),l=f.data("pin");if(!l){continue}o.push(f);var c=l.from-l.pad.bottom,h=l.to-l.pad.top;if(c+f.outerHeight()>l.end){f.css("position","");continue}if(c<n&&h>n){!(f.css("position")=="fixed")&&f.css({left:f.offset().left,top:l.pad.top}).css("position","fixed");if(t.activeClass){f.addClass(t.activeClass)}}else if(n>=h){f.css({left:"",top:h-l.parentTop+l.pad.top}).css("position","absolute");if(t.activeClass){f.addClass(t.activeClass)}}else{f.css({position:"",top:"",left:""});if(t.activeClass){f.removeClass(t.activeClass)}}}r=o};var a=function(){o();u()};this.each(function(){var t=e(this),n=e(this).data("pin")||{};if(n&&n.update){return}r.push(t);e("img",this).one("load",o);n.update=a;e(this).data("pin",n)});s.scroll(u);s.resize(function(){o()});o();s.load(a);return this}})(jQuery)
+
 $(document).ready(function(){
 
 /*    $(function () {                                                                     
@@ -417,23 +419,54 @@ var Weburl = getRootPath();
             });   
         })
     });
+
     $('.fatherblock').click(function (){
         $('.fatherblockText').val($(this).attr("value"));
     });
+
+    $('.changefatherblock').click(function (){
+        $('.fatherblocklogoText').val($(this).attr("value"));
+    });
+
     $('.createblock').click(function (){
+        var block = $(this).val();
         var father = $('.fatherblockText').val();
         var son = $('.sonblockText').val();
-        var logo = $('.sonblockLogo').val();
-        $.ajax({
-            type:'POST',
-            data: {father:father,son:son,logo:logo},
-            url:Weburl+'/admin/controller.php?action=createblock',//请求数据的地址
-            success:function(data){
-                console.log(data);
-                
-                TwoSecRefresh();
-            }
-        });
+        $('#myModal').on('show.bs.modal', function () {
+            $('.modal-body').text("父版块为： "+father+" 子版块为:"+son);
+            $('#yes').click(function (){
+                $(this).addClass("disabled");
+                $.ajax({
+                    type:'POST',
+                    data: {father:father,son:son},
+                    url:Weburl+'/admin/controller.php?action=createblock',//请求数据的地址
+                    success:function(data){
+                        console.log(data);
+                        var decode = JSON.parse(data);
+                        switch(decode.errorcode){
+                            case "1":
+                                $('.alert').addClass('alert alert-danger');
+                                $('.alert').find('strong').text("失败！");
+                                $('.alert').find('span').text("父、子版块名称不能为空！");
+                                break;
+                            case "2":
+                                $('.alert').addClass('alert alert-danger');
+                                $('.alert').find('strong').text("失败！");
+                                $('.alert').find('span').text("已存在该子版块");
+                                break;
+                            case "0":
+                                $('.alert').addClass('alert alert-success');
+                                $('.alert').find('strong').text("成功！");
+                                $('.alert').find('span').text("两秒后刷新页面");
+                                break;
+                        }
+                        
+                        
+                        TwoSecRefresh();
+                    }
+                });
+            });   
+        })
     });
     $('.delectblock').click(function (){
         var block = $(this).val();
@@ -458,7 +491,42 @@ var Weburl = getRootPath();
             });   
         })
     });
-    
+    $('.changefatherblocklogo').click(function (){
+        var father = $('.fatherblocklogoText').val();
+        var logo = $('.fatherblocklogo').val();
+        $('#myModal').on('show.bs.modal', function () {
+            $('.modal-body').html("父版块为： "+father+" 图标修改为：<i class='"+logo+"'></i>");
+            $('#yes').click(function (){
+                $(this).addClass("disabled");
+                $.ajax({
+                    type:'POST',
+                    data: {father:father,logo:logo},
+                    url:Weburl+'/admin/controller.php?action=changefatherblocklogo',//请求数据的地址
+                    success:function(data){
+                        console.log(data);
+                        var decode = JSON.parse(data);
+                        switch(decode.errorcode){
+                            case "1":
+                                $('.alert').addClass('alert alert-danger');
+                                $('.alert').find('strong').text("失败！");
+                                $('.alert').find('span').text("无此父版块！");
+                                break;
+                            case "0":
+                                $('.alert').addClass('alert alert-success');
+                                $('.alert').find('strong').text("成功！");
+                                $('.alert').find('span').text("两秒后刷新页面");
+                                break;
+                        }
+                        
+                        
+                        TwoSecRefresh();
+                    }
+                });
+            });   
+        })
+    });
+
+    $(".blocknav").pin();
 });
 
 function getRootPath() {

@@ -1,7 +1,8 @@
 <?php
-	if (isset($_GET['b'])) {
+	if (isset($_GET['b']) && defined('IN_SYS')) {
 
 	}else{
+		echo "非法访问！";
 		exit();
 	}
 ?>
@@ -11,12 +12,12 @@
 	    	<h3 class="panel-title">
 		        <?php
 					if(isset($_GET['b']) && !isset($_GET['r'])){
-						echo "发布新串";
+						echo $_GET['b']." - 发布新串";
 					}else if(isset($_GET['b']) && isset($_GET['r'])){
 						echo "回复 No.".htmlspecialchars($_GET['r']);
 					}
 				?>
-		        <div id="cookieShow"  data-toggle="tooltip" data-placement="top" title="如果没有显示饼干，请刷新一下页面！或检查浏览器是否禁用Cookie">当前饼干：
+		        <div id="cookieShow"  data-toggle="tooltip" data-placement="top" title="发贴之后才能领取饼干！如发贴失败请检查浏览器是否禁用Cookie">当前饼干：
 			        <?php
 			        	if(!isset($_COOKIE["renmbCookies"])){
 			        		echo "尚未领取饼干";
@@ -82,9 +83,9 @@
 
 						<?php
 							if(isset($_GET['b']) && !isset($_GET['r'])){
-								echo "<button id=\"Send\" class=\"btn btn-primary\" type=\"button\" value=\"".$_GET['b']."\">发布</button>";
+								echo "<button id=\"Send\" class=\"btn btn-primary\" type=\"button\" name=\"".$_GET['b']."\" value=\"".$_GET['b']."\">发布</button>";
 							}else if(isset($_GET['b']) && isset($_GET['r'])){
-								echo "<button id=\"Reply\" class=\"btn btn-primary\"type=\"button\" value=\"".$_GET['r']."\">回复</button>";
+								echo "<button id=\"Reply\" class=\"btn btn-primary\"type=\"button\" name=\"".$_GET['b']."\" value=\"".$_GET['r']."\">回复</button>";
 							}
 						?>
 			            

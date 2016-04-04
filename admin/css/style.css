@@ -11,6 +11,8 @@ margin-bottom: 0px !important;
 	padding: 8px;
 	height: 40px;
 }
+.pin-wrapper{
+}
 .panel-zdy{border-color:#e7e7e7}
 .panel-zdy>.panel-heading{color:#000;background-color:#F8F8F8;border-color:#e7e7e7}
 .panel-zdy>.panel-heading+.panel-collapse>.panel-body{border-top-color:#e7e7e7}

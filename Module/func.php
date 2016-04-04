@@ -114,14 +114,14 @@
 				$p = 1;
 			}
 		}
-		echo "<div id=\"main\"><div id=\"breadcrumbBox\"><ol class=\"breadcrumb\"><li><a href=\".\"><i class=\"fa fa-home\"></i> 主页</a></li>";
+		echo "<div id='main'><div id='breadcrumbBox'><ol class='breadcrumb'><li><a href='.'><i class='fa fa-home'></i> 主页</a></li>";
 		if(isset($_GET['b']) && !isset($_GET['r'])){
-			echo "<li class=\"active\">".$_GET['b']."</li>";
+			echo "<li class='active'>".$_GET['b']."</li>";
 		}else if(isset($_GET['b']) && isset($_GET['r'])){
-			echo "<li><a href=\"?b=".$_GET['b']."\">".$_GET['b']."</a></li>";
-			echo "<li class=\"active\">No.".htmlspecialchars($_GET['r'])."</li>";
+			echo "<li><a href='?b=".$_GET['b']."'>".$_GET['b']."</a></li>";
+			echo "<li class='active'>No.".htmlspecialchars($_GET['r'])."</li>";
 		}
-		echo "<li class=\"active\">第 ".$p." 页</li>";
+		echo "<li class='active'>第 ".$p." 页</li>";
 		echo "</ol></div>";
 		}else{
 			exit();
@@ -172,8 +172,8 @@ p也需要进行验证
 				$p = 1;
 			}
 		}		
-		echo "<ul class=\"pagination\">";
-		echo "<li><a href=\"?b=".$block."&p=1\">首页</a></li>";
+		echo "<ul class='pagination'>";
+		echo "<li><a href='?b=".$block."&p=1'>首页</a></li>";
 
 		$tmp = $p;
 		$after = $p+4;
@@ -193,21 +193,21 @@ p也需要进行验证
 			return false;
 		}
 		if($p > 1){
-			echo "<li><a href=\"?b=".$block."&p=".($p - 1)."\">上一页</a></li>";
+			echo "<li><a href='?b=".$block."&p=".($p - 1)."'>上一页</a></li>";
 		}
 		for($before;$before < $p;$before++){
-			echo "<li><a href=\"?b=".$block."&p=".$before."\">".$before."</a></li>";
+			echo "<li><a href='?b=".$block."&p=".$before."'>".$before."</a></li>";
 		}
-		echo "<li class=\"active\"><a href=\"?b=".$block."&p=".$p."\">".$p."</a></li>";
+		echo "<li class='active'><a href='?b=".$block."&p=".$p."'>".$p."</a></li>";
 
 		if($tmp != $count){
 			for($tmp;$tmp < $after;$tmp){
-				echo "<li><a href=\"?b=".$block."&p=".++$tmp."\">".$tmp."</a></li>";
+				echo "<li><a href='?b=".$block."&p=".++$tmp."'>".$tmp."</a></li>";
 			}
 		}
 
 		if($p != $count){
-			echo "<li><a href=\"?b=".$block."&p=".($p + 1)."\">下一页</a></li>";
+			echo "<li><a href='?b=".$block."&p=".($p + 1)."'>下一页</a></li>";
 		}		
 		echo "</ul>";
 	}
@@ -215,8 +215,8 @@ p也需要进行验证
 	//回复分页
 	function LoopReplyPagination($block,$reply_for,$p){
 		$count = getReplyPageCount($reply_for);
-		echo "<ul class=\"pagination\">";
-		echo "<li><a href=\"?b=".$block."&r=".$reply_for."&p=1\">首页</a></li>";
+		echo "<ul class='pagination'>";
+		echo "<li><a href='?b=".$block."&r=".$reply_for."&p=1'>首页</a></li>";
 
 		$tmp = $p;
 		$after = $p+4;
@@ -236,21 +236,21 @@ p也需要进行验证
 			return false;
 		}
 		if($p > 1){
-			echo "<li><a href=\"?b=".$block."&r=".$reply_for."&p=".($p - 1)."\">上一页</a></li>";
+			echo "<li><a href='?b=".$block."&r=".$reply_for."&p=".($p - 1)."'>上一页</a></li>";
 		}
 		for($before;$before < $p;$before++){
-			echo "<li><a href=\"?b=".$block."&r=".$reply_for."&p=".$before."\">".$before."</a></li>";
+			echo "<li><a href='?b=".$block."&r=".$reply_for."&p=".$before."'>".$before."</a></li>";
 		}
-		echo "<li class=\"active\"><a href=\"?b=".$block."&r=".$reply_for."&p=".$p."\">".$p."</a></li>";
+		echo "<li class='active'><a href='?b=".$block."&r=".$reply_for."&p=".$p."'>".$p."</a></li>";
 
 		if($tmp != $count){
 			for($tmp;$tmp < $after;$tmp){
-				echo "<li><a href=\"?b=".$block."&r=".$reply_for."&p=".++$tmp."\">".$tmp."</a></li>";
+				echo "<li><a href='?b=".$block."&r=".$reply_for."&p=".++$tmp."'>".$tmp."</a></li>";
 			}
 		}
 
 		if($p != $count){
-			echo "<li><a href=\"?b=".$block."&r=".$reply_for."&p=".($p + 1)."\">下一页</a></li>";
+			echo "<li><a href='?b=".$block."&r=".$reply_for."&p=".($p + 1)."'>下一页</a></li>";
 		}		
 		echo "</ul>";
 	}
@@ -273,8 +273,8 @@ p也需要进行验证
 			}
 		}		
 
-		echo "<ul class=\"pagination\">";
-		echo "<li><a href=\"?action=page_manage&b=".$block."&p=1\">首页</a></li>";
+		echo "<ul class='pagination'>";
+		echo "<li><a href='?action=page_manage&b=".$block."&p=1'>首页</a></li>";
 
 		$tmp = $p;
 		$after = $p+4;
@@ -294,21 +294,21 @@ p也需要进行验证
 			return false;
 		}
 		if($p > 1){
-			echo "<li><a href=\"?action=page_manage&b=".$block."&p=".($p - 1)."\">上一页</a></li>";
+			echo "<li><a href='?action=page_manage&b=".$block."&p=".($p - 1)."'>上一页</a></li>";
 		}
 		for($before;$before < $p;$before++){
-			echo "<li><a href=\"?action=page_manage&b=".$block."&p=".$before."\">".$before."</a></li>";
+			echo "<li><a href='?action=page_manage&b=".$block."&p=".$before."'>".$before."</a></li>";
 		}
-		echo "<li class=\"active\"><a href=\"?action=page_manage&b=".$block."&p=".$p."\">".$p."</a></li>";
+		echo "<li class='active'><a href='?action=page_manage&b=".$block."&p=".$p."'>".$p."</a></li>";
 
 		if($tmp != $count){
 			for($tmp;$tmp < $after;$tmp){
-				echo "<li><a href=\"?action=page_manage&b=".$block."&p=".++$tmp."\">".$tmp."</a></li>";
+				echo "<li><a href='?action=page_manage&b=".$block."&p=".++$tmp."'>".$tmp."</a></li>";
 			}
 		}
 
 		if($p != $count){
-			echo "<li><a href=\"?action=page_manage&b=".$block."&p=".($p + 1)."\">下一页</a></li>";
+			echo "<li><a href='?action=page_manage&b=".$block."&p=".($p + 1)."'>下一页</a></li>";
 		}		
 		echo "</ul>";
 	}
@@ -324,16 +324,25 @@ p也需要进行验证
 	//获取父类菜单
 	function getFatherMenu(){
 		$database = connMySQL();
-		$MenuFatherBlock = $database->select("nmb_menu", ["menu_father_zh_name","menu_father_zh_logo"]);
-		return $MenuFatherBlock;
+		$MenuFatherBlock = $database->select("nmb_menu", "menu_father_menu_name");
+		return array_unique($MenuFatherBlock);
+	}
+
+	//获取父类图标
+	function getFatherLogo($FatherBlock){
+		$database = connMySQL();
+		$MenuFatherLogo= array_unique($database->select("nmb_menu", "menu_father_menu_logo",[
+			"menu_father_menu_name" => $FatherBlock 
+		]));
+		return $MenuFatherLogo;
 	}
 
 	//获取子类菜单
 	function getSonMenu($FatherBlock){
 		$database = connMySQL();
-		$MenuSonBlock = $database->select("nmb_menu", "menu_son_zh_name",array(  
-	        "menu_father_zh_name" => $FatherBlock  
-	    ));
+		$MenuSonBlock = $database->select("nmb_menu", "menu_son_menu_name",[  
+	        "menu_father_menu_name" => $FatherBlock  
+	    ]);
 		return $MenuSonBlock;
 	}
 
@@ -608,7 +617,7 @@ p也需要进行验证
 	function isblock($block){
 		$database = connMySQL();
 		$tmp = $database->has("nmb_menu", array(  
-	        "menu_son_zh_name" => addslashes($block) 
+	        "menu_son_menu_name" => addslashes($block) 
 	    ));
 	   	if($tmp){
 	   		return true;

@@ -11,19 +11,20 @@
 	<head>
 	<?php
 		echo "
-			<meta http-equiv=\"X-UA-Compatible\" content=\"IE=EmulateIE7\" />
-			<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />
-			<link rel=\"stylesheet\" href=\"".WEBROOTURL."/admin/css/style.css\">
-			<link rel=\"stylesheet\" href=\"".WEBROOTURL."/css/bootstrap.min.css\">
-			<link rel=\"stylesheet\" href=\"".WEBROOTURL."/css/font-awesome.min.css\">
+			<meta http-equiv='X-UA-Compatible' content='IE=EmulateIE7' />
+			<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+			<link rel='stylesheet' href='".WEBROOTURL."/admin/css/style.css'>
+			<link rel='stylesheet' href='".WEBROOTURL."/css/bootstrap.min.css'>
+			<link rel='stylesheet' href='".WEBROOTURL."/css/font-awesome.min.css'>
 
-			<script type=\"text/jscript\" src=\"".WEBROOTURL."/js/jquery.min.js\"></script>
-			<script type=\"text/jscript\" src=\"".WEBROOTURL."/js/bootstrap.min.js\"></script>
-			<script type=\"text/jscript\" src=\"".WEBROOTURL."/admin/js/highcharts.js\"></script>
-			<script type=\"text/jscript\" src=\"".WEBROOTURL."/admin/js/func.js\"></script>
-			<script type=\"text/javascript\" src=\"".WEBROOTURL."/js/jquery.form.min.js\"></script>
+			<script type='text/jscript' src='".WEBROOTURL."/js/jquery.min.js'></script>
+			<script type='text/jscript' src='".WEBROOTURL."/js/bootstrap.min.js'></script>
+			<script type='text/jscript' src='".WEBROOTURL."/admin/js/highcharts.js'></script>
+			<script type='text/jscript' src='".WEBROOTURL."/admin/js/func.js'></script>
+			<script type='text/javascript' src='".WEBROOTURL."/js/jquery.form.min.js'></script>
 			";
 	?>
+	<script type='text/javascript' src='js/jquery.scrollTo.js'></script>
 	</head>
 	<body>  
 		<div class="container">
@@ -92,7 +93,7 @@
 					<?php
 						if(isset($_GET['action'])){
 							$action = $_GET['action'];
-							echo "<script type='text/javascript'>document.getElementById('".$action."').className=\"active\";</script>";
+							echo "<script type='text/javascript'>document.getElementById('".$action."').className='active';</script>";
 							switch ($action) {
 								case 'server_status':
 									require_once ('./server_status.php');
@@ -105,6 +106,9 @@
 									break;
 								case 'reply_manage':
 									require_once ('./reply_manage.php');
+									break;
+								case 'website_config':
+									require_once ('./website_config.php');
 									break;
 							}
 						}
