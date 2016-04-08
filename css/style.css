@@ -55,7 +55,9 @@ body{
 	max-width: 100%;
 }
 
-
+#footer{
+	width: 550px;
+}
 
 #breadcrumbBox{
 	padding-top: 30px;
@@ -63,7 +65,8 @@ body{
 
 #breadcrumbBox,#textEditor,#loopPage{
 	margin: 0 auto;
-	max-width: 1280px;overflow:hidden;
+	max-width: 1100px;
+	overflow:hidden;
 }
 
 
@@ -224,7 +227,21 @@ body{
 
 /********LoopPage**********/
 
-#pagination{
-	margin: auto 0;
+.paginationBox{
+	margin-top:10px;
 	text-align: center;
+	width: auto;
 }
+
+.rawpic{
+	margin-top: -3px;
+	margin-right: 2px;
+}
+
+/* #returntotop{
+	height: 64px;
+	width: 64px;
+	border: 1px solid red;
+	position: absolute;
+	right: 60px;
+} */

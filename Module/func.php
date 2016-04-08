@@ -1,4 +1,4 @@
-<?php
+ <?php
 	require_once ('medoo.php');
 
     function connMySQL(){
@@ -36,7 +36,7 @@
 /*********************************饼干*********************************/
 
 	//判断是否存在饼干
-	function isCookies(){
+/*	function isCookies(){
 		if(!isset($_COOKIE["renmbCookies"]) && COOKIEOPEN == 1){
 			return createCookies(9);
 		}
@@ -45,33 +45,47 @@
 		}else{
 			return $_COOKIE["renmbCookies"];
 		}
-	}
+	}*/
 
 	//生成饼干
 	function createCookies($length){
-		$str = null;
+		$cookie = null;
 		$strPool = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
 		$max = strlen($strPool)-1;
 		a:
 		for($i=0;$i<$length;$i++){
-			$str.=$strPool[rand(0,$max)];
+			$cookie.=$strPool[rand(0,$max)];
 		}
-		if(cookieisset($str)){
+		if(cookieisset($cookie)){
 			goto a;
 		}else{
-			savecookies($str);	
-			setcookie("renmbCookies",$str,7*24*3600+time(),"/");
+			$code = md5($cookie.mt_rand());
+			setcookie("renmbCookies",$code,7*24*3600+time(),"/");
+			$senddate = date("Y-m-d H:i:s",time());
+			$database = connMySQL();
+			$database->insert("nmb_user",["cookie" => $cookie,"cookiemd5" => $code,"create_time" => $senddate,"warning" => "0"]);
 		}
-		return $str;
+		return $cookie;
 	}
 
 	//检查当前饼干是否存在
 	function cookieisset($cookie){
 		$database = connMySQL();
-		$tmp = $database->has("nmb_user", array(  
+		$tmp = $database->has("nmb_user", [  
 	        "cookie" => addslashes($cookie)  
-	    ));
+	    ]);
 	    return $tmp;
+	}
+
+	//
+	function getcookies($cookie){
+		$database = connMySQL();
+		$tmp = $database->has("nmb_user",[
+			"cookiemd5" => $cookie
+		]);
+		if($tmp){
+			return $database->select("nmb_user", "cookie",["cookiemd5" => $cookie])[0];
+		}
 	}
 
 	//获取当前饼干状态
@@ -82,11 +96,11 @@
 	}
 
 	//储存饼干
-	function savecookies($cookie){
+/*	function savecookies($cookie){
 		$database = connMySQL();
 		$senddate = date("Y-m-d H:i:s",time());
 		$tmp = $database->insert("nmb_user",["cookie" => $cookie,"create_time" => $senddate,"warning" => "0"]);
-	}
+	}*/
 
 /*********************************饼干*********************************/
 
@@ -172,7 +186,7 @@ p也需要进行验证
 				$p = 1;
 			}
 		}		
-		echo "<ul class='pagination'>";
+		echo "<div class='container paginationBox'><ul class='pagination'>";
 		echo "<li><a href='?b=".$block."&p=1'>首页</a></li>";
 
 		$tmp = $p;
@@ -209,7 +223,7 @@ p也需要进行验证
 		if($p != $count){
 			echo "<li><a href='?b=".$block."&p=".($p + 1)."'>下一页</a></li>";
 		}		
-		echo "</ul>";
+		echo "</ul></div>";
 	}
 
 	//回复分页

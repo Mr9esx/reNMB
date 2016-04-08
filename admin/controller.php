@@ -150,8 +150,39 @@
 					exit();
 				}
 				break;
+			case 'login':
+				if(isset($_POST['user']) && $_POST['password']){
+					if($_POST['user'] != NULL && $_POST['password'] != NULL){
+						$database = connMySQL();
+						$tmp = $database->has("nmb_admin", [
+					        "username" => $_POST['user']
+					    ]);
+					    if($tmp){
+					    	$tmp1 = $database->has("nmb_admin", [
+					        	"password" => md5($_POST['password'])
+					   		]);
+					   		if($tmp1){
+					   			if($_POST['sevendaylogin'] == 'true'){
+					   				$lifetime = 7 * 24 * 3600;//7天
+					   				session_set_cookie_params($lifetime);
+					   			}	   			
+					   			session_start();
+					   			$_SESSION['user']=$_POST['user'];
+					   			$_SESSION['flag']="true";
+					   			echo "0";
+					   		}else{
+					   			echo "1";
+					   		}
+					    }else{
+					    	echo "1";
+					    }
+					}
+				}else{
+					echo "1";
+				}
+				break;
 			default:
-				# code...
+				# nmbb2cb1l1
 				break;
 		}
 	}

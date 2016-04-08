@@ -15,6 +15,7 @@
 						echo $_GET['b']." - 发布新串";
 					}else if(isset($_GET['b']) && isset($_GET['r'])){
 						echo "回复 No.".htmlspecialchars($_GET['r']);
+						
 					}
 				?>
 		        <div id="cookieShow"  data-toggle="tooltip" data-placement="top" title="发贴之后才能领取饼干！如发贴失败请检查浏览器是否禁用Cookie">当前饼干：
@@ -22,7 +23,7 @@
 			        	if(!isset($_COOKIE["renmbCookies"])){
 			        		echo "尚未领取饼干";
 			        	}else{
-			        		echo $_COOKIE["renmbCookies"];
+			        		echo getcookies($_COOKIE["renmbCookies"]);
 			        	}
 			        ?>
 		        </div>

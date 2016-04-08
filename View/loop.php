@@ -56,7 +56,7 @@
 			//输出
 			$text = str_replace("&lt;br/&gt;", "<br/>",$text);
 			echo "
-			<div id='loopPage'>
+			<div id='loopPage' class='".$pageID."'>
 				<div class='panel panel-info'>
 					<div class='panel-heading'>
 						<span class='pageTitle'>".$pageTitle."</span>
@@ -70,7 +70,7 @@
 								<button type='button' class='btn btn-default'><i class='fa fa-bookmark'></i> 订阅</button>
 							</div>
 							<div class='btn-group btn-group-sm'>
-								<button type='button' class='btn btn-primary' onclick='reply(".$pageID.",'".$block."');'>回复</button>
+								<button type='button' class='btn btn-primary' onclick=\"reply(".$pageID.",'".$block."')\">回复</button>
 							</div>
 						</span>
 					</div>

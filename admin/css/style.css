@@ -18,3 +18,93 @@ margin-bottom: 0px !important;
 .panel-zdy>.panel-heading+.panel-collapse>.panel-body{border-top-color:#e7e7e7}
 .panel-zdy>.panel-heading .badge{color:#e7e7e7;background-color:#fff}
 .panel-zdy>.panel-footer+.panel-collapse>.panel-body{border-bottom-color:#e7e7e7}
+
+/* ---------- LOGIN ---------- */
+
+#user,#password,#loginbtn {
+	border: none;
+	height: 28px;
+	font-family: inherit;
+	font-size: inherit;
+	font-weight: inherit;
+	line-height: inherit;
+	-webkit-appearance: none;
+}
+
+#login {
+	margin: 17% auto;
+	width: 403px;
+}
+
+#login h2 {
+	background-color: #f95252;
+	-webkit-border-radius: 20px 20px 0 0;
+	-moz-border-radius: 20px 20px 0 0;
+	border-radius: 20px 20px 0 0;
+	margin-bottom: 0px;
+	color: #fff;
+	font-size: 28px;
+	text-align: center;
+	padding: 20px 0px;
+}
+
+
+
+#login fieldset {
+	filter:alpha(Opacity=100);
+	-moz-opacity:0.95;
+	opacity: 0.95;
+	background-color: #fff;
+	-webkit-border-radius: 0 0 20px 20px;
+	-moz-border-radius: 0 0 20px 20px;
+	border-radius: 0 0 20px 20px;
+	padding: 20px 26px;
+	margin-left: 0px;
+}
+
+#login fieldset p {
+	color: #777;
+	margin-bottom: 14px;
+}
+
+#login fieldset p:last-child {
+	margin-bottom: 0;
+}
+
+#login fieldset input {
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+#login fieldset input[type="text"], #login fieldset input[type="password"] {
+	background-color: #eee;
+	color: #777;
+	padding: 4px 10px;
+	width: 328px;
+}
+
+#login fieldset input[type="submit"] {
+	background-color: #33cc77;
+	height: 38px;
+	color: #fff;
+	display: block;
+	margin: 0 auto;
+	margin-top: 30px;
+	padding: 4px 0;
+	width: 140px;
+}
+
+#login fieldset input[type="submit"]:hover {
+	background-color: #28ad63;
+}
+
+#msg{
+	color: red;
+	font-size: 1.1em;
+	width: 300px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+/* ---------- LOGIN ---------- */

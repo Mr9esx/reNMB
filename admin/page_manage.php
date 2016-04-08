@@ -45,7 +45,7 @@
 		border: 1px solid red;
 	}
 </style>
-<div class="col-md-2 column" style="">
+<div class="col-xs-2 column" style="">
 	<div class='blocknav'>
 		<div class="page-header">
 		   	<h4>版块选择</h4>
